@@ -1,0 +1,38 @@
+{
+  "name": "design-system-2-org-starter",
+  "version": "1.0.0",
+  "description": "Proto-to-prod starter kit for Salesforce UI: local Vite dev with SLDS 2 + org deployment via SF CLI",
+  "author": "Salesforce UX",
+  "scripts": {
+    "postinstall": "npm run skills:sync",
+    "skills:sync": "node scripts/sync-afv-skills.mjs",
+    "prebuild-icons": "node scripts/prebuild-icons.mjs",
+    "dev": "node scripts/prebuild-icons.mjs && vite",
+    "dev:native-shadow": "echo 'To use native shadow, set disableSyntheticShadowSupport: true in vite.config.js'",
+    "build": "node scripts/prebuild-icons.mjs && vite build",
+    "check": "npm run build && npx @salesforce-ux/slds-linter@latest lint src/modules",
+    "build:gh-pages": "node scripts/prebuild-icons.mjs && vite build --mode gh-pages",
+    "preview": "vite preview",
+    "deploy": "npm run build:gh-pages && gh-pages -d dist --nojekyll",
+    "clean": "rm -rf dist .vite node_modules",
+    "deploy:org": "sf project deploy start",
+    "deploy:org:check": "sf project deploy validate"
+  },
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "type": "module",
+  "dependencies": {
+    "@lwc/synthetic-shadow": "^9.0.2",
+    "@salesforce-ux/design-system": "^2.29.0",
+    "@salesforce-ux/design-system-2": "^0.0.0-alpha.0",
+    "lightning-base-components": "^1.28.15-alpha",
+    "lwc": "^9.0.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "vite": "^7.3.1",
+    "vite-plugin-lwc": "^4.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

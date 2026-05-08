@@ -1,0 +1,66 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: auto;
+    background-color: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+/* Global shell stays fixed at top and stacks above the body/panel */
+:host > shell-global-shell {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* Wrapper for main content + panel layout: fills remaining height, scroll only here */
+.app-body {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.utility-full-height {
+    align-self: stretch;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+/* Allow content cell to shrink so scroll wrapper gets a bounded height */
+.app-body__content-cell {
+    min-height: 0;
+    min-width: 0;
+}
+
+/* Wrapper that fills the layout cell and establishes flex for the scroll area */
+.app-body__scroll-wrapper {
+    align-self: stretch;
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+}
+
+/* Main content area: fills wrapper, scroll ownership lives here */
+.app-main {
+    flex: 1 1 0;
+    min-height: 0;
+    min-width: 0;
+    overflow: visible;
+    position: relative;
+}
+
+.app-main__inner {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+lightning-badge {
+    display: inline-block;
+}

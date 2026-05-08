@@ -1,0 +1,28 @@
+/*
+ * Reference implementation for docs/spacing-rules.md.
+ *
+ * - Vertical rhythm via `gap` on the page stack (Pattern 2 — never per-item slds-m-bottom_*).
+ * - Page-level outer padding handled here (single source of truth).
+ * - Each <lightning-card> body wrapper (slds-var-p-around_medium) is in the markup, not CSS.
+ */
+
+.home-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-6, 1.5rem);
+    padding-block: var(--slds-g-spacing-8, 2rem) var(--slds-g-spacing-10, 2.5rem);
+}
+
+.home-page__footer {
+    margin-block-start: var(--slds-g-spacing-4, 1rem);
+}
+
+.home-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.spinner-demo {
+    min-height: var(--slds-g-sizing-14, 15rem);
+}

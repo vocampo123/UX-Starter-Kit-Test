@@ -1,0 +1,390 @@
+<template>
+    <div class="console-record">
+
+        <!-- Console navigation bar (slds-context-bar blueprint) -->
+        <div class="slds-context-bar">
+            <div class="slds-context-bar__primary">
+                <div class="slds-context-bar__item slds-context-bar__dropdown-trigger slds-dropdown-trigger slds-dropdown-trigger_click">
+                    <div class="slds-context-bar__icon-action slds-p-right_none">
+                        <lightning-button-icon
+                            icon-name="utility:waffle"
+                            variant="bare"
+                            alternative-text="App Launcher"
+                            title="App Launcher"
+                            class="slds-context-bar__button">
+                        </lightning-button-icon>
+                    </div>
+                    <span class="slds-context-bar__label-action slds-context-bar__app-name">
+                        <span class="slds-truncate" title="Lightning Service">Lightning Service</span>
+                    </span>
+                </div>
+            </div>
+            <nav class="slds-context-bar__secondary" role="navigation" aria-label="App Navigation Menu">
+                <ul class="slds-grid">
+                    <!-- Primary tab: Contacts -->
+                    <li class="slds-context-bar__item">
+                        <a class="slds-context-bar__label-action" title="Contacts" role="menuitem">
+                            <span class="slds-truncate">Contacts</span>
+                        </a>
+                    </li>
+                    <!-- Active tab: Sarah White record -->
+                    <li class="slds-context-bar__item slds-is-active" aria-current="page">
+                        <a class="slds-context-bar__label-action" title="Sarah White" role="menuitem">
+                            <lightning-icon icon-name="standard:contact" size="x-small" alternative-text="Contact" class="slds-m-right_xx-small"></lightning-icon>
+                            <span class="slds-truncate">Sarah White</span>
+                        </a>
+                        <div class="slds-context-bar__icon-action slds-context-bar__icon-action_end slds-p-left_none">
+                            <lightning-button-icon
+                                icon-name="utility:close"
+                                variant="bare"
+                                size="x-small"
+                                alternative-text="Close Sarah White tab"
+                                title="Close">
+                            </lightning-button-icon>
+                        </div>
+                        <!-- Active indicator bar -->
+                        <div class="console-record__tab-indicator"></div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Page content -->
+        <div class="console-record__body">
+
+            <!-- Page header (slds-page-header record-home variant) -->
+            <div class="slds-page-header slds-page-header_record-home">
+                <div class="slds-page-header__row">
+                    <!-- Title col: slds-has-flexi-truncate allows title to shrink -->
+                    <div class="slds-has-flexi-truncate">
+                        <div class="slds-media slds-no-space slds-grow">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name="standard:contact" size="large" alternative-text="Contact"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <div class="slds-page-header__name">
+                                    <div class="slds-page-header__name-title">
+                                        <h1>
+                                            <span>Account</span>
+                                            <span class="slds-page-header__title slds-truncate" title="Sarah White">Sarah White</span>
+                                        </h1>
+                                    </div>
+                                    <div class="slds-page-header__name-meta">Contact · Acme Corp</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Actions col: slds-no-flex prevents shrinking -->
+                    <div class="slds-no-flex slds-grid slds-align-top">
+                        <div class="slds-page-header__controls">
+                            <div class="slds-page-header__control">
+                                <lightning-button-group>
+                                    <lightning-button label="Edit" variant="neutral"></lightning-button>
+                                    <lightning-button label="Start Conversation" variant="neutral"></lightning-button>
+                                    <lightning-button label="New Opportunity" variant="neutral"></lightning-button>
+                                    <lightning-button-menu
+                                        alternative-text="More Actions"
+                                        variant="border-filled"
+                                        icon-size="medium"
+                                        menu-alignment="right">
+                                        <lightning-menu-item label="Send Email" value="send_email"></lightning-menu-item>
+                                        <lightning-menu-item label="Log a Call" value="log_call"></lightning-menu-item>
+                                        <lightning-menu-item label="Create Task" value="create_task"></lightning-menu-item>
+                                        <lightning-menu-item label="Delete" value="delete"></lightning-menu-item>
+                                    </lightning-button-menu>
+                                </lightning-button-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary field strip -->
+                <div class="slds-page-header__row slds-page-header__row_gutters">
+                    <div class="slds-page-header__col-details">
+                        <ul class="slds-page-header__detail-row">
+                            <li class="slds-page-header__detail-block">
+                                <p class="slds-text-title slds-truncate" title="Account Name">Account Name</p>
+                                <p class="slds-truncate" title="Acme Corp">Acme Corp</p>
+                            </li>
+                            <li class="slds-page-header__detail-block">
+                                <p class="slds-text-title slds-truncate" title="Title">Title</p>
+                                <p class="slds-truncate" title="VP of Sales">VP of Sales</p>
+                            </li>
+                            <li class="slds-page-header__detail-block">
+                                <p class="slds-text-title slds-truncate" title="Email">Email</p>
+                                <lightning-formatted-email value="sarah.white@acme.com"></lightning-formatted-email>
+                            </li>
+                            <li class="slds-page-header__detail-block">
+                                <p class="slds-text-title slds-truncate" title="Phone">Phone</p>
+                                <lightning-formatted-phone value="5555551234"></lightning-formatted-phone>
+                            </li>
+                            <li class="slds-page-header__detail-block">
+                                <p class="slds-text-title slds-truncate" title="Department">Department</p>
+                                <p class="slds-truncate" title="Sales">Sales</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two-column body — horizontal padding only; no top padding (page header owns its own) -->
+            <div class="slds-grid slds-gutters slds-var-p-horizontal_medium console-record__content">
+
+                <!-- Left: tabbed record details -->
+                <div class="slds-col console-record__main">
+                    <lightning-card class="console-record__details-card">
+                        <lightning-tabset>
+
+                            <!-- Details tab -->
+                            <lightning-tab label="Details" value="details">
+                                <div class="console-record__tab-panel">
+                                    <div class="console-record__nested-container slds-p-around_medium">
+                                    <div class="slds-grid slds-wrap slds-gutters_small">
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                            <lightning-input label="Name" value="Sarah White" read-only></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                            <lightning-input label="Contact Owner" value="James Davis" read-only></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                            <lightning-input label="Account Name" value="Acme Corp" read-only></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                            <lightning-input label="Email" value="sarah.white@acme.com" type="email" read-only></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                            <lightning-input label="Title" value="VP of Sales" read-only></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                            <lightning-input label="Phone" value="(555) 555-1234" type="tel" read-only></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                            <lightning-input label="Department" value="Sales" read-only></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                            <lightning-input label="Mobile" value="(555) 555-5678" type="tel" read-only></lightning-input>
+                                        </div>
+                                    </div>
+
+                                    <!-- Expandable Address section (blueprint: slds-section) -->
+                                    <div class="slds-section slds-is-open slds-m-top_small">
+                                        <h3 class="slds-section__title">
+                                            <button
+                                                class="slds-button slds-section__title-action"
+                                                aria-expanded="true"
+                                                aria-controls="address-section-content">
+                                                <lightning-icon
+                                                    icon-name="utility:switch"
+                                                    size="x-small"
+                                                    alternative-text="Toggle Address section"
+                                                    class="slds-section__title-action-icon slds-button__icon slds-button__icon_left">
+                                                </lightning-icon>
+                                                <span class="slds-truncate" title="Address">Address</span>
+                                            </button>
+                                        </h3>
+                                        <div class="slds-section__content" id="address-section-content" aria-hidden="false">
+                                            <div class="slds-grid slds-wrap slds-gutters_small slds-p-top_small">
+                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                                    <lightning-input label="Mailing Street" value="1 Market St" read-only></lightning-input>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                                    <lightning-input label="Mailing City" value="San Francisco" read-only></lightning-input>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                                    <lightning-input label="Mailing State" value="CA" read-only></lightning-input>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                                    <lightning-input label="Mailing Zip" value="94105" read-only></lightning-input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div><!-- end nested-container -->
+                                </div>
+                            </lightning-tab>
+
+                            <!-- Related Lists tab -->
+                            <lightning-tab label="Related Lists" value="related">
+                                <div class="console-record__tab-panel">
+                                    <div class="console-record__nested-container">
+                                        <lightning-card title="Cases (3)" icon-name="standard:case">
+                                            <lightning-button slot="actions" label="New Case" variant="neutral"></lightning-button>
+                                            <lightning-datatable
+                                                key-field="id"
+                                                data={cases}
+                                                columns={caseColumns}
+                                                hide-checkbox-column>
+                                            </lightning-datatable>
+                                        </lightning-card>
+                                    </div>
+                                    <div class="console-record__nested-container">
+                                        <lightning-card title="Opportunities (2)" icon-name="standard:opportunity">
+                                            <lightning-button slot="actions" label="New Opportunity" variant="neutral"></lightning-button>
+                                            <lightning-datatable
+                                                key-field="id"
+                                                data={opportunities}
+                                                columns={opportunityColumns}
+                                                hide-checkbox-column>
+                                            </lightning-datatable>
+                                        </lightning-card>
+                                    </div>
+                                </div>
+                            </lightning-tab>
+
+                            <!-- Label tab -->
+                            <lightning-tab label="Label" value="label">
+                                <div class="console-record__tab-panel">
+                                    <p class="slds-text-body_regular slds-text-color_weak">No labels applied.</p>
+                                </div>
+                            </lightning-tab>
+
+                        </lightning-tabset>
+                    </lightning-card>
+                </div>
+
+                <!-- Right sidebar — gap handles spacing between cards, never per-card slds-m-top_* -->
+                <div class="slds-col console-record__sidebar">
+                  <div class="console-record__sidebar-stack">
+
+                    <!-- Next Best Action -->
+                    <lightning-card title="Next Best Action" icon-name="standard:einstein_ai">
+                        <div class="slds-var-p-around_medium">
+                            <p class="slds-text-body_regular slds-m-bottom_small">
+                                Check to see if the last B2B Order qualifies for free Cirrus Services.
+                            </p>
+                            <div class="slds-m-bottom_x-small">
+                                <lightning-button label="Check for Qualifying Order" variant="brand"></lightning-button>
+                            </div>
+                            <lightning-button label="No, Thank You" variant="base"></lightning-button>
+                        </div>
+                    </lightning-card>
+
+                    <!-- Activity panel: no card title — outer standard tabs ARE the header per Figma -->
+                    <lightning-card class="console-record__activity-card">
+                        <lightning-tabset>
+                            <lightning-tab label="Activity" value="activity">
+                                <div class="console-record__activity-panel">
+                                    <!-- Inner bordered sub-card: scoped tabs + tab content (per Figma 26094:24532) -->
+                                    <div class="slds-tabs_scoped console-record__scoped-tabs">
+                                        <ul class="slds-tabs_scoped__nav" role="tablist">
+                                            <li class="slds-tabs_scoped__item slds-is-active" role="presentation">
+                                                <a class="slds-tabs_scoped__link" role="tab" aria-selected="true" aria-controls="tab-log" id="tab-log-link" onclick={handleScopedTabClick}>Log a Call</a>
+                                            </li>
+                                            <li class="slds-tabs_scoped__item" role="presentation">
+                                                <a class="slds-tabs_scoped__link" role="tab" aria-selected="false" aria-controls="tab-email" id="tab-email-link" onclick={handleScopedTabClick}>Email</a>
+                                            </li>
+                                            <li class="slds-tabs_scoped__item" role="presentation">
+                                                <a class="slds-tabs_scoped__link" role="tab" aria-selected="false" aria-controls="tab-task" id="tab-task-link" onclick={handleScopedTabClick}>New Task</a>
+                                            </li>
+                                            <li class="slds-tabs_scoped__item" role="presentation">
+                                                <a class="slds-tabs_scoped__link" role="tab" aria-selected="false" aria-controls="tab-event" id="tab-event-link" onclick={handleScopedTabClick}>New Event</a>
+                                            </li>
+                                        </ul>
+                                        <div id="tab-log" class="slds-tabs_scoped__content" role="tabpanel" aria-labelledby="tab-log-link">
+                                            <div class="console-record__activity-content">
+                                                <p class="console-record__recap-label">Recap your Call</p>
+                                                <div class="console-record__recap-row">
+                                                    <div class="console-record__recap-input">
+                                                        <lightning-input label="Recap your Call" variant="label-hidden" aria-label="Recap your Call"></lightning-input>
+                                                    </div>
+                                                    <lightning-button label="Add" variant="brand"></lightning-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="tab-email" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-email-link">
+                                            <div class="console-record__activity-content">
+                                                <lightning-textarea label="Email body" placeholder="Write your email..."></lightning-textarea>
+                                                <div class="slds-m-top_small slds-grid slds-grid_align-end">
+                                                    <lightning-button label="Send" variant="brand"></lightning-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="tab-task" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-task-link">
+                                            <div class="console-record__activity-content">
+                                                <lightning-input label="Subject" placeholder="Task subject..."></lightning-input>
+                                                <div class="slds-m-top_small slds-grid slds-grid_align-end">
+                                                    <lightning-button label="Save" variant="brand"></lightning-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="tab-event" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-event-link">
+                                            <div class="console-record__activity-content">
+                                                <lightning-input label="Subject" placeholder="Event subject..."></lightning-input>
+                                                <div class="slds-m-top_small slds-grid slds-grid_align-end">
+                                                    <lightning-button label="Save" variant="brand"></lightning-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Filters row (outside the sub-card) -->
+                                    <div class="console-record__filters-row">
+                                        <p class="console-record__filters">
+                                            <span class="console-record__filters-label">Filters:</span>
+                                            <span>All time</span>
+                                            <span>All Activities</span>
+                                            <span>All Types</span>
+                                        </p>
+                                        <lightning-button-icon
+                                            icon-name="utility:filterList"
+                                            variant="border-filled"
+                                            size="x-small"
+                                            alternative-text="Filter activities"
+                                            title="Filter"
+                                            class="console-record__filter-button">
+                                        </lightning-button-icon>
+                                    </div>
+
+                                    <!-- Action links row (outside the sub-card) -->
+                                    <div class="console-record__activity-links">
+                                        <button class="slds-button slds-button_reset console-record__activity-link" type="button">Refresh</button>
+                                        <span class="console-record__link-separator" aria-hidden="true">•</span>
+                                        <button class="slds-button slds-button_reset console-record__activity-link" type="button">Expand All</button>
+                                        <span class="console-record__link-separator" aria-hidden="true">•</span>
+                                        <button class="slds-button slds-button_reset console-record__activity-link" type="button">View All</button>
+                                    </div>
+                                </div>
+                            </lightning-tab>
+
+                            <lightning-tab label="Einstein" value="einstein">
+                                <div class="slds-p-around_small">
+                                    <p class="slds-text-body_regular slds-text-color_weak">Einstein insights appear here.</p>
+                                </div>
+                            </lightning-tab>
+
+                            <lightning-tab label="Community" value="community">
+                                <div class="slds-p-around_small">
+                                    <p class="slds-text-body_regular slds-text-color_weak">No community posts yet.</p>
+                                </div>
+                            </lightning-tab>
+
+                            <lightning-tab label="Chatter" value="chatter">
+                                <div class="slds-p-around_small">
+                                    <p class="slds-text-body_regular slds-text-color_weak">No chatter posts yet.</p>
+                                </div>
+                            </lightning-tab>
+                        </lightning-tabset>
+                    </lightning-card>
+
+                  </div><!-- end sidebar-stack -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Docked utility bar (slds-utility-bar blueprint) -->
+        <div class="slds-utility-bar console-record__utility-bar" role="region" aria-label="Utility Bar">
+            <template for:each={utilityItems} for:item="item">
+                <button key={item.id} class="slds-utility-bar__action" aria-haspopup="dialog">
+                    <lightning-icon
+                        icon-name={item.iconName}
+                        size="x-small"
+                        alternative-text={item.label}
+                        class="slds-m-right_xx-small">
+                    </lightning-icon>
+                    <span class="slds-utility-bar__text">{item.label}</span>
+                </button>
+            </template>
+        </div>
+
+    </div>
+</template>

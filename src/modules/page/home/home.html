@@ -1,0 +1,212 @@
+<template>
+    <!--
+      Reference implementation for docs/spacing-rules.md:
+        - Vertical rhythm via `gap` on the page stack (not per-item slds-m-bottom_*)
+        - Every <lightning-card> body wrapped in slds-var-p-around_medium (density-aware)
+        - Two-column grids inside cards use slds-grid slds-wrap slds-gutters_small
+          with per-cell slds-p-bottom_small for row spacing (no pull-to-boundary)
+    -->
+    <section class="home-page slds-container_x-large slds-container_center slds-p-horizontal_large">
+
+        <c-home-intro></c-home-intro>
+
+        <lightning-card title="Input Components">
+            <div class="slds-var-p-around_medium">
+                <div class="slds-grid slds-wrap slds-gutters_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <lightning-input
+                            label="Text Input"
+                            placeholder="Enter some text..."
+                            value={inputValue}
+                            onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <lightning-input
+                            type="email"
+                            label="Email Input"
+                            placeholder="user@example.com">
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <lightning-input
+                            type="tel"
+                            label="Phone Number"
+                            placeholder="(555) 555-5555">
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <lightning-input
+                            type="date"
+                            label="Date Picker"
+                            value={dateValue}
+                            onchange={handleDateChange}>
+                        </lightning-input>
+                    </div>
+                </div>
+            </div>
+        </lightning-card>
+
+        <lightning-card title="Selection Components">
+            <div class="slds-var-p-around_medium">
+                <div class="slds-grid slds-wrap slds-gutters_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <lightning-checkbox-group
+                            label="Checkbox Group"
+                            options={checkboxOptions}
+                            value={checkboxGroupValues}
+                            onchange={handleCheckboxChange}>
+                        </lightning-checkbox-group>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <lightning-radio-group
+                            label="Radio Group"
+                            options={radioOptions}
+                            value={selectedRadioValue}
+                            onchange={handleRadioChange}>
+                        </lightning-radio-group>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <lightning-combobox
+                            label="Combobox"
+                            placeholder="Select an option"
+                            options={comboboxOptions}
+                            value={selectedComboboxValue}
+                            onchange={handleComboboxChange}>
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <lightning-input
+                            type="toggle"
+                            label="Enable Feature"
+                            checked={toggleValue}
+                            onchange={handleToggleChange}>
+                        </lightning-input>
+                    </div>
+                </div>
+            </div>
+        </lightning-card>
+
+        <lightning-card title="Other Input Types">
+            <div class="slds-var-p-around_medium">
+                <lightning-slider
+                    label="Slider Control"
+                    value={sliderValue}
+                    min="0"
+                    max="100"
+                    step="5"
+                    onchange={handleSliderChange}>
+                </lightning-slider>
+                <p class="slds-text-body_small slds-m-top_x-small slds-m-bottom_medium">
+                    Current Value: {sliderValue}
+                </p>
+                <lightning-textarea
+                    label="Text Area"
+                    placeholder="Enter multiple lines of text..."
+                    value={textAreaValue}
+                    onchange={handleTextAreaChange}>
+                </lightning-textarea>
+            </div>
+        </lightning-card>
+
+        <lightning-card title="Button Variants">
+            <div class="slds-var-p-around_medium">
+                <div class="slds-button-group">
+                    <lightning-button
+                        class="slds-m-right_x-small"
+                        label="Base Button"
+                        onclick={handleButtonClick}>
+                    </lightning-button>
+                    <lightning-button
+                        class="slds-m-right_x-small"
+                        variant="brand"
+                        label="Brand Button"
+                        onclick={handleBrandButton}>
+                    </lightning-button>
+                    <lightning-button
+                        class="slds-m-right_x-small"
+                        variant="success"
+                        label="Success Button"
+                        onclick={handleSuccessButton}>
+                    </lightning-button>
+                    <lightning-button
+                        class="slds-m-right_x-small"
+                        variant="neutral"
+                        label="Neutral Button"
+                        onclick={handleNeutralButton}>
+                    </lightning-button>
+                    <lightning-button
+                        variant="destructive"
+                        label="Destructive Button"
+                        onclick={handleDestructiveButton}>
+                    </lightning-button>
+                </div>
+            </div>
+        </lightning-card>
+
+        <lightning-card title="Icon Buttons">
+            <div class="slds-var-p-around_medium">
+                <div class="slds-button-group">
+                    <lightning-button-icon
+                        class="slds-m-right_x-small"
+                        icon-name="utility:download"
+                        alternative-text="Download"
+                        title="Download">
+                    </lightning-button-icon>
+                    <lightning-button-icon
+                        class="slds-m-right_x-small"
+                        icon-name="utility:edit"
+                        alternative-text="Edit"
+                        title="Edit">
+                    </lightning-button-icon>
+                    <lightning-button-icon
+                        class="slds-m-right_x-small"
+                        icon-name="utility:delete"
+                        alternative-text="Delete"
+                        title="Delete">
+                    </lightning-button-icon>
+                    <lightning-button-icon
+                        icon-name="utility:refresh"
+                        alternative-text="Refresh"
+                        title="Refresh">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </lightning-card>
+
+        <lightning-card title="Badges">
+            <div class="slds-var-p-around_medium home-badges">
+                <lightning-badge label="Default Badge"></lightning-badge>
+                <lightning-badge label="Success Badge" class="slds-badge_lightest"></lightning-badge>
+                <lightning-badge label="Warning Badge"></lightning-badge>
+                <lightning-badge label="Error Badge"></lightning-badge>
+            </div>
+        </lightning-card>
+
+        <lightning-card title="Modal Demo">
+            <div class="slds-var-p-around_medium">
+                <p class="slds-m-bottom_small slds-text-body_regular">
+                    Click the button below to open a modal built with <code>lightning-modal-header</code>, <code>lightning-modal-body</code>, and <code>lightning-modal-footer</code>.
+                </p>
+                <lightning-button
+                    label="Open modal"
+                    variant="brand"
+                    onclick={handleOpenModal}
+                    title="Open demo modal">
+                </lightning-button>
+            </div>
+        </lightning-card>
+
+        <lightning-card title="Loading Spinner">
+            <div class="slds-var-p-around_medium">
+                <div class="slds-align_absolute-center slds-is-relative spinner-demo">
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </div>
+            </div>
+        </lightning-card>
+
+        <p class="slds-text-align_center slds-text-color_weak home-page__footer">
+            Built with Vite + LWC + Lightning Base Components + SLDS
+        </p>
+    </section>
+</template>

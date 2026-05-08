@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>c:homeIntro</componentName>
+                <identifier>c_homeIntro</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>default</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Starter Kit Home</masterLabel>
+    <template>
+        <name>flexipage:homeTemplateDesktop</name>
+    </template>
+    <type>HomePage</type>
+</FlexiPage>

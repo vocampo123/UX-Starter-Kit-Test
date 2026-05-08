@@ -1,0 +1,9 @@
+# Local dev files — not part of the Salesforce package
+node_modules/
+dist/
+.vite/
+src/
+public/
+scripts/
+vite-plugins/
+.agent/

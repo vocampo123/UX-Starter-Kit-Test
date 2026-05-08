@@ -1,0 +1,223 @@
+:host {
+    display: block;
+}
+
+.console-record {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+/* Push utility bar to bottom when content is short */
+.console-record__body {
+    flex: 1 1 auto;
+}
+
+.console-record__content {
+    align-items: flex-start;
+}
+
+/* Main column fills remaining space */
+.console-record__main {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* Sidebar fixed width matching Figma 396px column + room for card chrome */
+.console-record__sidebar {
+    flex: 0 0 28rem;
+    min-width: 0;
+}
+
+/* ==========================================================================
+   Activity panel — Figma node 26094:24532
+   Layout: outer card = lightning-card with tabset header (Activity / Einstein /…)
+           inner sub-card = .console-record__scoped-tabs (bordered, rounded)
+           below sub-card: filters row + action links row
+   ========================================================================== */
+
+/* Cancel lightning-tab's default 0.75rem top/bottom panel padding so each tab
+   panel owns its own padding via .console-record__tab-panel / __activity-panel.
+   Applied to both the left details card and the right activity card.
+   See docs/spacing-rules.md → Pattern 4 (tab content) and Pattern 7 (LBC internals). */
+.console-record__activity-card,
+.console-record__details-card {
+    display: block;
+
+    --slds-c-tabs-panel-spacing-block-start: 0;
+    --slds-c-tabs-panel-spacing-block-end: 0;
+}
+
+/* Sidebar stack — gap handles spacing between cards; never per-card margin */
+.console-record__sidebar-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-4, 1rem);
+}
+
+/* Shared tab panel wrapper — zero padding so inner containers span
+   the full tab width, flush with the tab nav above. */
+.console-record__tab-panel {
+    padding: 0;
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+/* Nested container: sits inside the tab panel, fills full tab width,
+   has its own border and rounded corners matching the design screenshot.
+   Used for the Details form fields and Related List tables. */
+.console-record__nested-container {
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    background-color: var(--slds-g-color-surface-container-1, #fff);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.console-record__nested-container + .console-record__nested-container {
+    margin-top: var(--slds-g-spacing-4, 1rem);
+}
+
+.console-record__activity-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-4, 1rem);
+    /* No horizontal padding — inner sub-card aligns flush with the outer tab nav.
+       16px top + 16px bottom owned here. */
+    padding: var(--slds-g-spacing-4, 1rem) 0;
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+/* Inner bordered sub-card containing scoped tabs + tab content */
+.console-record__scoped-tabs {
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-3, 0.75rem);
+    background-color: var(--slds-g-color-surface-container-1, #fff);
+    overflow: hidden;
+    min-width: 0;
+}
+
+/* Tighten scoped tab link padding so 4 tabs fit in the column without truncation */
+.console-record__scoped-tabs .slds-tabs_scoped__nav {
+    border-radius: var(--slds-g-radius-border-3, 0.75rem) var(--slds-g-radius-border-3, 0.75rem) 0 0;
+    flex-wrap: nowrap;
+}
+
+.console-record__scoped-tabs .slds-tabs_scoped__item {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.console-record__scoped-tabs .slds-tabs_scoped__link {
+    padding: 0 var(--slds-g-spacing-2, 0.5rem);
+    white-space: nowrap;
+    text-align: center;
+    justify-content: center;
+}
+
+/* Tab content padding inside the sub-card */
+.console-record__activity-content {
+    padding: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.console-record__recap-label {
+    margin: 0 0 var(--slds-g-spacing-2, 0.5rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    font-size: var(--slds-g-font-scale-1, 0.875rem);
+    line-height: 1.35;
+}
+
+.console-record__recap-row {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.console-record__recap-input {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Filters row — text on the left, circular filter button on the right */
+.console-record__filters-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.console-record__filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    margin: 0;
+    color: var(--slds-g-color-neutral-base-30, #444);
+    font-size: var(--slds-g-font-scale-base, 0.8125rem);
+    line-height: 1.4;
+}
+
+.console-record__filters-label {
+    color: var(--slds-g-color-neutral-base-10, #181818);
+}
+
+.console-record__filters span + span::before {
+    content: "\2022";
+    margin-right: var(--slds-g-spacing-2, 0.5rem);
+    color: var(--slds-g-color-neutral-base-50, #747474);
+}
+
+.console-record__filters-label::before {
+    content: none !important;
+}
+
+/* Circular filter icon button */
+.console-record__filter-button {
+    --slds-c-button-radius-border: 999px;
+    flex-shrink: 0;
+}
+
+/* Right-aligned blue link buttons: Refresh • Expand All • View All */
+.console-record__activity-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.console-record__activity-link {
+    color: var(--slds-g-color-brand-base-50, #0176d3);
+    font-size: var(--slds-g-font-scale-base, 0.8125rem);
+    font-weight: var(--slds-g-font-weight-4, 400);
+}
+
+.console-record__activity-link:hover,
+.console-record__activity-link:focus-visible {
+    color: var(--slds-g-color-brand-base-40, #014486);
+    text-decoration: underline;
+}
+
+.console-record__link-separator {
+    color: var(--slds-g-color-neutral-base-50, #747474);
+    font-size: var(--slds-g-font-scale-base, 0.8125rem);
+    line-height: var(--slds-g-font-line-height-1, 1);
+}
+
+/* Active console tab accent underline (--slds-g-color-accent-2 per pattern doc) */
+.console-record__tab-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--slds-g-sizing-border-3, 2px);
+    background-color: var(--slds-g-color-accent-2, #0250d9);
+}
+
+/* Utility bar sticks to bottom of the page shell */
+.console-record__utility-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
