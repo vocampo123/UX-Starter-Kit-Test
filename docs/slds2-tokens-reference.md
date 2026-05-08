@@ -115,6 +115,7 @@ SLDS 2 color tokens are organized into semantic families. Always provide a hex f
 | Layer | Token | Fallback | Notes |
 |---|---|---|---|
 | App shell / page canvas | `--slds-g-color-surface-2` | `#f3f3f3` | The grey canvas behind all content. |
+| **Page header** | `--slds-g-color-surface-container-2` | `#f3f3f3` | Confirmed from SLDS 2 Figma component library — all 6 page header variants use this token. |
 | Card / panel surface | `--slds-g-color-surface-container-1` | `#ffffff` | White background inside `lightning-card`, modals, panels |
 | White page (no grey canvas) | `--slds-g-color-surface-1` | `#ffffff` | Use when the full viewport should be white (e.g. setup pages, full-bleed forms) |
 | Subtle recessed panel | `--slds-g-color-surface-3` | `#e5e5e5` | Inset zones, read-only field backgrounds, striped rows |

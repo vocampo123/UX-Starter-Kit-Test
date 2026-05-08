@@ -70,7 +70,7 @@ Left: Salesforce cloud logo (`utility:salesforce1` icon, large)
 
 LBC: `lightning-layout` horizontal-align="spread" vertical-align="center" for the header row. Use `lightning-button-icon`, `lightning-button-icon-stateful`, `lightning-button-menu`, and `lightning-avatar` for utility area items.
 
-SLDS hook: `--slds-g-color-surface-container-1` for header background.
+SLDS hook: `--slds-g-color-surface-container-1` (`#ffffff`) for the global header bar background.
 
 ---
 
@@ -136,12 +136,28 @@ LBC: Use `slds-utility-bar` blueprint. Implement as an LWC — no single LBC cov
 
 The page header is a blueprint (`slds-page-header`) — there is no single LBC that wraps it. Build it directly in HTML using the classes below.
 
+**Background token: `--slds-g-color-surface-container-2` (`#f3f3f3`)** — confirmed from SLDS 2 Figma component library. Page headers use the grey container-2 surface, not the white card surface. Do not use `surface-container-1` (`#ffffff`) here.
+
+```css
+.slds-page-header {
+  background-color: var(--slds-g-color-surface-container-2, #f3f3f3);
+}
+```
+
 ### Variants
 
-| Variant class | When to use |
-|---|---|
-| `slds-page-header` (no modifier) | List views, object home pages |
-| `slds-page-header slds-page-header_record-home` | Single-record views (contact, case, account, etc.) |
+All 6 variants from the SLDS 2 grab-n-go set share the same `surface-container-2` background.
+
+| Variant | Class(es) | Row 1 | Row 2 | Actions |
+|---|---|---|---|---|
+| **Base** | `slds-page-header` | Breadcrumbs + title | Item count + list controls | None |
+| **Object Home** | `slds-page-header` | Object icon + type label + title | Item count + list controls | Follow / Edit / Delete / Clone split group |
+| **Object Home (long title)** | `slds-page-header` | Object icon + type label + title (truncates) | Item count + list controls | New split button |
+| **Object Home with list-view picker** | `slds-page-header` | Object icon + type label + title + `▼` picker | Item count + extended list controls | New split button |
+| **Record Home minimal** | `slds-page-header slds-page-header_record-home` | Object icon + title + meta text | — | None |
+| **Record Home full** | `slds-page-header slds-page-header_record-home` | Breadcrumbs + object icon + title + `▼` + pin | Meta text + item count + search + list controls | Follow / New / Edit / Delete / Clone + overflow |
+
+`slds-page-header_record-home` adds Row 2: a summary field strip (`slds-page-header__detail-row`) showing 4–7 key fields.
 
 Always apply `box-shadow: var(--slds-g-shadow-1, 0 2px 2px rgba(0,0,0,0.10))` to the page header element — it sits above the content area and needs elevation to communicate that stacking.
 

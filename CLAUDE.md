@@ -116,6 +116,7 @@ color: #333;
 | Layer | Token | Fallback |
 |-------|-------|---------|
 | Page canvas / app shell | `--slds-g-color-surface-2` | `#f3f3f3` |
+| **Page header** | `--slds-g-color-surface-container-2` | `#f3f3f3` |
 | Card / panel interior | `--slds-g-color-surface-container-1` | `#ffffff` |
 | Full-white page (no grey canvas) | `--slds-g-color-surface-1` | `#ffffff` |
 | Subtle recessed / read-only area | `--slds-g-color-surface-3` | `#e5e5e5` |
