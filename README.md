@@ -95,7 +95,7 @@ For org deployment, build section components in `force-app/main/default/lwc/` an
 
 ## AI agent usage
 
-If you are using an AI coding agent (Claude Code, Cursor, Copilot), the guidance files are already in place:
+If you are using an AI coding agent (Claude Code, Cursor, Copilot), the guidance files are already in place — **do not run `/init` or any command that regenerates agent files**. Doing so will overwrite the pre-configured Salesforce UI rules with generic ones.
 
 - **Claude Code** — reads `CLAUDE.md` automatically
 - **Cursor** — reads `.cursor/rules/salesforce-ui.mdc`
