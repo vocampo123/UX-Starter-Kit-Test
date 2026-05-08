@@ -103,6 +103,8 @@ If you are using an AI coding agent (Claude Code, Cursor, Copilot), the guidance
 
 When starting a new project, provide the agent with your PRD or requirements. The agent will save artifacts to `docs/prd/` and maintain a build state README across sessions.
 
+To kick off a guided setup, just tell the agent: **"help me get started"**
+
 ---
 
 ## References
