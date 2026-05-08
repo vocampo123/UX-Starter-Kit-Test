@@ -1,4 +1,4 @@
-# Salesforce Design System 2 Org Starter Kit
+# UX Starter Kit Test
 
 A **prototype-to-org starter kit** for building Salesforce UI experiences. It keeps the original local SLDS 2 + LWC starter experience for learning, prototyping, and validating UI patterns, then adds a Salesforce DX `force-app/` layer so reusable components can be deployed to a Salesforce org.
 
