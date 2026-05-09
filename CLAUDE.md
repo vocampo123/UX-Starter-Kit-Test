@@ -70,27 +70,103 @@ Full LBC catalog: https://developer.salesforce.com/docs/component-library/overvi
 
 ### Related list cards — card is rounded, datatable is flat
 
-The `lightning-card` owns the rounded corners. The `lightning-datatable` inside is flat and inset — never a second rounded container.
+The `lightning-card` owns the visible boundary (1px border + no drop shadow + 12px rounded corners). The `lightning-datatable` inside is **flat**: no outline, no rounded corners, just horizontal row dividers. Never a second rounded container.
+
+**This is non-obvious in the cosmos SLDS 2 theme. Read this section before writing any related-list markup.**
+
+#### What cosmos does by default — and why your card looks invisible until you fix it
+
+Cosmos sets these scope tokens that flatten everything:
+
+| Token | Cosmos default | Effect on `lightning-card` |
+|---|---|---|
+| `--slds-s-container-shadow` | `none` | No drop shadow on the card |
+| `--slds-s-container-color-border` | `transparent` | No visible card border |
+| `--_slds-c-datatable-color-border` | `--slds-g-color-border-1` (#c9c9c9) | Datatable has a visible left/right border |
+| `--_slds-c-datatable-radius-border` | `calc(--slds-g-sizing-border-4 * 2)` (~8px) | Datatable has rounded corners |
+
+Setting `--slds-c-card-shadow` on a parent **does not work** — the inner `<article class="slds-card">` directly resets it via `var(--slds-s-container-shadow)`. Style the host element directly.
+
+#### Canonical markup
 
 ```html
 <lightning-card class="related-card" title="Cases" icon-name="standard:case">
-  <lightning-button label="View All" variant="base" slot="actions"></lightning-button>
-  <div class="related-card-body">
-    <lightning-datatable class="related-table" key-field="id" data={rows} columns={cols} hide-checkbox-column>
-    </lightning-datatable>
+  <lightning-datatable class="related-table" key-field="id" data={rows} columns={cols} hide-checkbox-column>
+  </lightning-datatable>
+  <div class="related-card-footer">
+    <lightning-button label="View All" variant="base"></lightning-button>
   </div>
 </lightning-card>
 ```
 
+The datatable is **directly in the card body slot** — no `<div class="related-card-body">` wrapper, no `<div class="related-card-frame">`. Wrappers create a doubled visual boundary.
+
+"View All" goes at the **bottom** of the card (after the datatable in the default slot), centered — not in `slot="actions"`. `lightning-card` has no bottom slot; place it as a sibling after the datatable.
+
+For empty states only, swap the datatable for `<div class="related-card-body slds-var-p-around_medium">No {objects} to display.</div>`.
+
+#### Canonical CSS — copy-paste, do not modify
+
+Related list cards are **outline-only** (border, no drop shadow). No elevation.
+
 ```css
-.related-card { display: block; overflow: hidden; border-radius: var(--slds-g-radius-border-2, 0.25rem); }
-.related-card-body { padding: var(--slds-g-spacing-4, 1rem); }
-.related-table { display: block; border-radius: 0; --slds-g-color-border-base-1: transparent; }
+/* If a parent rule like `.your-shell lightning-card { box-shadow: ...; }` exists,
+   specificity matters — use .your-shell lightning-card.related-card to win. */
+.your-shell lightning-card.related-card {
+  display: block;
+  --slds-c-card-radius-border: var(--slds-g-radius-border-3, 0.75rem);
+  background-color: var(--slds-g-color-surface-container-1, #fff);
+  border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-1, #c9c9c9);
+  border-radius: var(--slds-g-radius-border-3, 0.75rem);
+  box-shadow: none;
+}
+.related-card-footer {
+  padding: var(--slds-g-spacing-3, 0.75rem);
+  text-align: center;
+  border-top: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-1, #c9c9c9);
+}
+/* --_slds-c-* hooks are internal SLDS APIs — reliable in cosmos but may change in platform updates */
+.related-table {
+  display: block;
+  --_slds-c-datatable-color-border: transparent;
+  --_slds-c-datatable-radius-border: 0;
+}
 ```
 
-- Never wrap the datatable in a second bordered or rounded box
+Why each line exists:
+- `display: block` — `lightning-card` host is `display: inline` by default; without this the border doesn't span full width
+- `--slds-c-card-radius-border` + `border-radius` together — keeps host border and inner article border-radius aligned (misalignment otherwise leaves a 1–2px band)
+- Border, radius, background **on the host** — only reliable place; cosmos defaults override anything set via `--slds-c-card-shadow` on a parent
+- `box-shadow: none` — related list cards are outline-only; use `.your-shell lightning-card.related-card` (specificity `0,2,1`) to beat a parent `.your-shell lightning-card` rule (`0,1,1`)
+- `--_slds-c-datatable-color-border: transparent` — kills cosmos-default visible left/right table outline (note: `--slds-g-color-border-base-1` does **not** work here)
+- `--_slds-c-datatable-radius-border: 0` — kills cosmos-default rounded table corners
+- Row dividers stay visible — they use `--slds-g-color-border-1` directly and are unaffected by the above overrides
+
+#### Outer detail container (tabset wrapper holding all related lists)
+
+Use `--slds-g-radius-border-4` (20px), not 12px:
+
+```css
+.detail-content-container {
+  background-color: var(--slds-g-color-surface-1, #fff);
+  border-radius: var(--slds-g-radius-border-4, 1.25rem);
+  box-shadow: var(--slds-g-shadow-1, 0 2px 2px rgba(0, 0, 0, 0.1));
+  overflow: clip; /* clips child content to rounded edge; does NOT clip container's own shadow */
+}
+```
+
+Use `overflow: clip`, **not** `overflow: hidden` — `hidden` clips children's box-shadows and silently truncates them at the container edge.
+
+#### Hard rules — these are errors
+
+- Never give related list cards a `box-shadow` — the design is outline-only
+- Never wrap the datatable in `.related-card-body` or `.related-card-frame` — datatable goes directly in the card slot
+- Never use `--slds-g-radius-border-2` (4px) for related list cards — cards use `--slds-g-radius-border-3` (12px)
+- Never set `--slds-c-card-shadow` on a parent expecting it to cascade — the inner article overrides; style the host directly
+- Never set `--slds-g-color-border-base-1: transparent` on the datatable — that hook does not affect the cosmos table outline; use `--_slds-c-datatable-color-border`
 - Never use `hide-table-header` + `hide-borders` together — breaks rendering in this starter
-- Never style datatable internals with descendant selectors — use `--slds-c-*` hooks on the datatable instance
+- Never style datatable internals with descendant selectors — synthetic shadow blocks them; use `--slds-c-*` / `--_slds-c-*` hooks on the datatable instance
+- When a parent rule applies `lightning-card { box-shadow: ... }`, `.related-card { box-shadow: none }` will lose on specificity — use `.parent-shell lightning-card.related-card` to win
 
 ### Styling — `--slds-g-*` hooks with fallback, always
 
