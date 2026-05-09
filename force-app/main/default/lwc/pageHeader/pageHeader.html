@@ -1,0 +1,58 @@
+<template>
+    <div class={headerClass}>
+
+        <!-- Row 1: icon + title + actions -->
+        <div class="slds-page-header__row">
+            <div class="slds-has-flexi-truncate">
+                <div class="slds-media slds-no-space slds-grow">
+                    <template lwc:if={iconName}>
+                        <div class="slds-media__figure">
+                            <lightning-icon
+                                icon-name={iconName}
+                                size="large"
+                                alternative-text={objectLabel}>
+                            </lightning-icon>
+                        </div>
+                    </template>
+                    <div class="slds-media__body">
+                        <template lwc:if={hasBreadcrumbs}>
+                            <slot name="breadcrumbs"></slot>
+                        </template>
+                        <template lwc:if={objectLabel}>
+                            <p class="slds-text-title slds-truncate">{objectLabel}</p>
+                        </template>
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="slds-page-header__title slds-truncate" title={title}>{title}</span>
+                                </h1>
+                            </div>
+                        </div>
+                        <template lwc:if={metaText}>
+                            <p class="slds-page-header__name-meta slds-truncate">{metaText}</p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-no-flex slds-grid slds-align-top">
+                <div class="slds-page-header__controls">
+                    <div class="slds-page-header__control">
+                        <slot name="actions"></slot>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: detail field strip (record-home variant only) -->
+        <template lwc:if={hasDetails}>
+            <div class="slds-page-header__row slds-page-header__row_gutters">
+                <div class="slds-page-header__col-details">
+                    <ul class="slds-page-header__detail-row">
+                        <slot name="details"></slot>
+                    </ul>
+                </div>
+            </div>
+        </template>
+
+    </div>
+</template>

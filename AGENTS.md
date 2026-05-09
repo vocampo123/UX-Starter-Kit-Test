@@ -33,6 +33,7 @@ These are non-negotiable. Pages that violate them will not look like Salesforce,
 | An avatar | `<lightning-avatar>` | `<img class="avatar">` |
 | A tile | `<lightning-tile>` | custom card markup |
 | A path / progress | `<lightning-path>` or `<lightning-progress-indicator>` | custom step markup |
+| **A page header** | `<c-page-header>` (org) / `<ui-page-header>` (local) — see `docs/ui-patterns/page-header.md` | raw `slds-page-header` blueprint, `<header>`, custom title bar |
 
 The full LBC catalog: https://developer.salesforce.com/docs/component-library/overview/components
 

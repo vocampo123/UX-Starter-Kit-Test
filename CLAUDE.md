@@ -37,6 +37,7 @@ Before writing any HTML element, check this table. If an LBC exists, use it — 
 | Spinner | `<lightning-spinner>` | custom CSS spinner |
 | Avatar | `<lightning-avatar>` | `<img class="avatar">` |
 | Progress / path | `<lightning-progress-indicator>` / `<lightning-path>` | custom step markup |
+| **Page header** | `<c-page-header>` (org) / `<ui-page-header>` (local) — see `docs/ui-patterns/page-header.md` | raw `slds-page-header` blueprint, `<header>`, custom title bar |
 
 Full LBC catalog: https://developer.salesforce.com/docs/component-library/overview/components
 
