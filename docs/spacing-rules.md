@@ -221,6 +221,61 @@ If you don't know the right `--slds-c-*` hook for a given LBC, search the SLDS b
 rg -l "--slds-c-tab-panel" node_modules/@salesforce-ux/design-system/scss
 ```
 
+#### When even your `--slds-c-*` host override doesn't work — the shadow-inheritance trap
+
+You set a `--slds-c-*` hook on the LBC host and nothing changes. The hook is correct, your syntax is correct, but the value never reaches the element.
+
+The cause: the cosmos SLDS 2 theme stylesheet re-sets the same variable on an internal element inside the LBC's shadow DOM, **closer** to the consumer than your host-level override. Inheritance flows down, but a closer redefinition wins.
+
+Example — `<lightning-tabset>` tab indicator thickness:
+
+```css
+/* Your override on the tabset host. Does nothing. */
+lightning-tabset.my-tabs {
+    --slds-c-tabs-list-sizing-border: 3px;   /* shadowed by cosmos */
+}
+```
+
+Why it fails — cosmos contains:
+
+```css
+/* node_modules/@salesforce-ux/design-system-2/dist/components/tabs/themes/cosmos.css */
+.slds-tabs_default {
+    --slds-c-tabs-list-sizing-border: var(--slds-g-sizing-border-1);  /* 1px */
+}
+```
+
+`.slds-tabs_default` is rendered **inside** the lightning-tab-bar's synthetic shadow root. It sits below your `lightning-tabset.my-tabs` in the inheritance chain, so its value wins. Your auto-scoped page CSS can't write a descendant selector into a child component's shadow DOM either — so neither path through the LWC's own stylesheet reaches it.
+
+**How to detect this trap before debugging in the browser:**
+
+```bash
+# Search the loaded cosmos bundle for the variable you're trying to set
+rg "--slds-c-tabs-list-sizing-border" node_modules/@salesforce-ux/design-system-2/dist/css/slds2.cosmos.css
+```
+
+If the variable is **assigned** (not just consumed) on a selector inside the cosmos file, you've found the trap.
+
+**The fix — write the override in `src/styles/global.css`:**
+
+```css
+/* src/styles/global.css — loaded as an unscoped global stylesheet */
+.my-page-shell .slds-tabs_default {
+    --slds-c-tabs-list-sizing-border: var(--slds-g-sizing-border-3, 3px);
+}
+```
+
+Why this works:
+- `src/styles/global.css` is loaded outside the LWC plugin (see `vite.config.js` `exclude` list), so its selectors aren't auto-scoped to a single component.
+- Cosmos itself uses global `.slds-*` selectors to reach into LBC synthetic shadow roots — so a same-pattern global rule of yours reaches the same element.
+- Setting the variable on the **same** `.slds-*` selector cosmos used puts your value at the same point in the inheritance chain, and a more-specific ancestor (`.my-page-shell`) makes your rule win.
+
+Hard rules for this pattern:
+- Always wrap the override in a page-scope class (`.my-page-shell .slds-tabs_default`) so it doesn't bleed across the app.
+- Only reach for this pattern after you have confirmed (via `rg`) that cosmos re-defines the variable internally. For 95% of LBC styling, a normal host-level `--slds-c-*` override works.
+- Keep the rule in `src/styles/global.css`. Do **not** scatter "global" overrides across page CSS files — page CSS is auto-scoped and won't apply anyway.
+- For the deployable org build, this CSS does not deploy (`src/` is excluded by `.forceignore`). The org equivalent is a separate static resource or a `lightning__AppPage` page-level stylesheet — out of scope for the local prototype.
+
 ### Pattern 8 — One visual boundary per component level
 
 Wrapper CSS describes the parent page pattern. It does not correct or restyle the child LBC.
