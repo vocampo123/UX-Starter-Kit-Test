@@ -28,7 +28,7 @@ Before writing any HTML element, check this table. If an LBC exists, use it — 
 | Dropdown / select | `<lightning-combobox>` | `<select>` |
 | Multiline text | `<lightning-textarea>` | `<textarea>` |
 | Checkbox / radio | `<lightning-checkbox-group>` / `<lightning-radio-group>` | `<input type="checkbox/radio">` |
-| Data table | `<lightning-datatable>` | `<table>` with CSS |
+| Data table | `<lightning-datatable column-widths-mode="auto">` | `<table>` with CSS; `lightning-datatable` without `column-widths-mode="auto"` (default `fixed` causes table overflow on column resize) |
 | Card | `<lightning-card>` | custom div |
 | Tabs | `<lightning-tabset>` + `<lightning-tab>` | `<ul>` tab strip |
 | Accordion | `<lightning-accordion>` + `<lightning-accordion-section>` | `<details>` |
@@ -167,6 +167,34 @@ Use `overflow: clip`, **not** `overflow: hidden` — `hidden` clips children's b
 - Never use `hide-table-header` + `hide-borders` together — breaks rendering in this starter
 - Never style datatable internals with descendant selectors — synthetic shadow blocks them; use `--slds-c-*` / `--_slds-c-*` hooks on the datatable instance
 - When a parent rule applies `lightning-card { box-shadow: ... }`, `.related-card { box-shadow: none }` will lose on specificity — use `.parent-shell lightning-card.related-card` to win
+
+### lightning-datatable configuration
+
+**Always set `column-widths-mode="auto"` on every `lightning-datatable`.** The default is `fixed` — each column gets a hard pixel width and the table's total width equals their sum. Resizing any column changes the total table width, causing the table to overflow or shrink inside its container.
+
+With `auto`, columns fill the container width and resizing redistributes space across columns rather than changing the total width.
+
+**Pin the container to `width: 100%`** so the auto sizing has a defined bounds to work within:
+
+```css
+.my-table-container { width: 100%; }
+.my-table-container lightning-datatable { display: block; width: 100%; }
+```
+
+`initialWidth` values on column definitions still work as starting widths — they just no longer dictate the table's total width.
+
+```html
+<!-- Always include column-widths-mode="auto" -->
+<lightning-datatable
+    key-field="id"
+    data={rows}
+    columns={columns}
+    column-widths-mode="auto"
+    hide-checkbox-column>
+</lightning-datatable>
+```
+
+**Never omit `column-widths-mode="auto"` on a datatable inside a card, panel, or any responsive container** — the default `fixed` mode will cause the table to overflow its container when columns are resized.
 
 ### Styling — `--slds-g-*` hooks with fallback, always
 
