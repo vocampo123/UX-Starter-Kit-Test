@@ -1,3 +1,12 @@
+/* Tab active indicator — cosmos sets --slds-c-tabs-list-sizing-border to 1px on
+   .slds-tabs_default, which drives the ::after height. Override here to 3px to match
+   the context bar active indicator weight. Synthetic shadow exposes this class globally
+   so global.css is the correct place for this fix. */
+.slds-tabs_default__item.slds-is-active::after,
+.slds-tabs--default__item.slds-is-active::after {
+    height: 3px !important;
+}
+
 /* Global Header: Action Icons */
 .lightning-button-menu_custom .slds-button__icon {
     fill: light-dark(var(--slds-g-color-palette-neutral-60), var(--slds-g-color-palette-neutral-40));
