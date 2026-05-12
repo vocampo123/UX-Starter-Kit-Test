@@ -1,0 +1,202 @@
+# Salesforce UI Guidelines
+
+---
+
+## TEMPLATE STRUCTURE (where to add components)
+
+- **Route-level views** → `src/modules/page/<name>/` → tag `page-<name>`. Register in `src/routes.config.js` and in `shell/app/app.js` (`ROUTE_COMPONENTS`).
+- **Child routes** (e.g. `/contacts/:id` under a `/contacts` tab) → set `navHighlight: '<parentNavPage>'` instead of `navPage`. This highlights the parent tab without creating a separate nav entry. Only routes with `navPage` create tabs; `navHighlight` is for active-state only.
+- **Reusable UI** → `src/modules/ui/<name>/` → tag `ui-<name>`. Use inside pages or other components.
+- **App shell** → `src/modules/shell/<name>/` → tag `shell-<name>`. Do not put feature UI here—use **`page/`** or **`ui/`**.
+- **Do not** add custom components under **`src/modules/lightning/`** or under **`src/build/lightning-icon/shims/`** except the checked-in icon overrides.
+
+---
+
+## UI CODE GUIDELINES
+
+### Modular Component Design
+
+**Decouple your UI into independent, single-responsibility components.** 
+Focus on creating a highly reusable and maintainable codebase by breaking complex layouts into smaller "atomic" or "molecular" LWCs.
+
+### Formatting Rules
+
+* Always prioritize readability and standard Salesforce design patterns.
+* Never use `!important`. 
+* Never override SLDS classes in your CSS.
+* Do not use inline style attributes - use utility classes or component CSS files.
+
+### LWC Framework
+
+If you run into errors with the LWC framework or LWR runtime, use the MCP server and selectively use tools to best address your issue.
+
+---
+
+## DESIGN SYSTEM CONTEXT
+
+This project uses two complementary design system indexes:
+
+**Lightning Base Components (LBCs)** – Prebuilt LWC implementations of SLDS components (e.g., `<lightning-button>`, `<lightning-card>`). These include built-in JavaScript functionality, events, and props. **Always use LBCs first** when available—they are the preferred method for building UI.
+
+**Lightning Design System Components** – The underlying CSS framework including:
+- **Styling Hooks**: CSS variables for theming (e.g., `--slds-g-color-surface-1`)
+- **Utility Classes**: Layout and spacing classes (e.g., `slds-m-around_small`)
+- **Component Classes**: CSS-only component patterns (e.g., `.slds-button`)
+- **Component Blueprints**: HTML/CSS markup patterns for when LBCs don't exist
+
+Use SLDS (styling hooks, utility classes, component blueprints) to customize LBCs or build components when no LBC exists.
+
+---
+
+## SPACING RULES
+
+**Read `docs/spacing-rules.md` before writing any layout markup or CSS.** Follow these seven rules; they are the difference between "looks Salesforce-native" and "designer has to re-prompt to fix gaps."
+
+1. **Always wrap `<lightning-card>` body content in a padding div.** `lightning-card` does not pad its default slot. Use `<div class="slds-var-p-around_medium">...</div>` (or another band) inside every card.
+2. **Use `gap` or `slds-gutters_*` for vertical rhythm.** Do not stack components by adding `slds-m-bottom_*` to each child — that produces uneven gaps when rows wrap.
+3. **Tab panel padding: pick one path.** Either trust `<lightning-tab>`'s default block padding *or* override `--slds-c-tab-panel-spacing-block-start/end: 0` and add your own wrapper. Never layer both. Never have neither.
+4. **Density-sensitive components use `slds-var-*` (or `--slds-g-spacing-var-*` hooks).** This includes cards, lists, tables, page headers, tabs, and form rows. Use fixed `slds-p-*` only for outer page gutters and modal bodies.
+5. **One scale band per component.** Compact (1–4) **or** standard (5–8) **or** macro (10–16). Don't mix bands inside a single component.
+6. **No top padding directly under `slds-page-header`.** The page-header already has block-end padding; use `slds-p-horizontal_medium slds-p-bottom_medium` on the body wrapper, not `slds-p-around_*`.
+7. **Customize LBC internals via `--slds-c-*` custom properties only.** Descendant selectors don't pierce synthetic shadow. If you reach for `!important`, you've picked the wrong tool — find the right `--slds-c-*` hook instead.
+
+**`pull-to-boundary` warning.** `pull-to-boundary` on `<lightning-layout>` cancels outer padding via negative margins. Use only when (a) the parent has explicit padding equal to the boundary value AND (b) every `<lightning-layout-item>` declares a matching `padding=` value. Otherwise prefer `slds-grid slds-wrap slds-gutters_*` with per-cell `slds-p-bottom_*` — it's simpler and more predictable.
+
+**Pre-flight check before declaring UI work done.** Walk the spacing-rules checklist in `docs/spacing-rules.md` ("Pre-flight checklist") and fix any unchecked box.
+
+---
+
+## UI CODE CHECKLIST
+
+Before writing ANY UI code, complete this checklist **IN ORDER**:
+
+1. **[ ] Search Lightning Base Components index** – Does a component exist for this?
+          - Reference: Lightning Base Components
+          **If YES** → Use it.
+          **If NO** → Proceed to step 2.
+
+2. **[ ] Search SLDS Component Blueprints** – Does a blueprint exist for this?
+          - **Use the MCP tool `explore_slds_blueprints`** to search by name, category, or keyword. Use `guide_slds_blueprints` for general blueprint guidance and a full index of all available blueprints.
+          **If YES** → Create a new LWC that implements this component blueprint.
+          **If NO** → Proceed to step 3.
+
+3. **[ ] Check SLDS Utility Classes** – Does one exist for this styling need?
+          - Reference: Lightning Design System Components
+          - Common utilities: spacing (`slds-m-*`, `slds-p-*`), layout (`slds-grid`, `slds-size_*`), text (`slds-text-*`)
+          **If YES** → Use it. 
+          **If NO** → Proceed to step 4.
+
+4. **[ ] Use Custom CSS with Styling Hooks** - Does one exist for this CSS property?
+          - Reference: Lightning Design System Components
+          **If YES** → Use it (with fallback value). 
+          **If NO** → Proceed to step 5.
+
+5. **[ ] Use a hard-coded CSS value** - Only when no component, utility class, or styling hook exists.
+
+### Lightning Base Component and Component Blueprints
+
+Before writing any HTML, CSS, or JavaScript, determine if an existing component can achieve the desired appearance.
+
+**Two Types of Components:**
+
+#### A. Lightning Base Components (`<lightning-*>`)
+Salesforce's official LWC components with JavaScript APIs, props, and events.
+
+**How to Find Lightning Base Components:**
+- Lightning Base Components index
+
+**Common Lightning Base Components:**
+* `<lightning-button>` - Interactive buttons with variants
+* `<lightning-input>` - Form inputs (text, email, date, checkbox, etc.)
+* `<lightning-textarea>` - Multi-line text input
+* `<lightning-card>` - Container with header, body, footer slots
+* `<lightning-combobox>` - Dropdown selection
+* `<lightning-datatable>` - Data tables with sorting
+* LightningModal (extend from `lightning/modal`) - Modal dialogs. **Use `src/modules/ui/demoModal/` as the reference:** extend LightningModal; compose with `lightning-modal-header`, `lightning-modal-body`, `lightning-modal-footer`; open via `MyModal.open({ size, label })`. Do not build modals from raw `slds-modal` markup.
+
+#### B. Component Blueprints (HTML/CSS Patterns)
+Vanilla HTML markup with SLDS CSS classes for when LBCs don't exist or aren't suitable.
+If a lightning base component is not available, create a _new LWC_ that implements the component blueprint.
+
+**How to Find Component Blueprints:**
+- **Use the MCP tool `explore_slds_blueprints`** to search and retrieve full blueprint specs. You can search by `name`, `category`, `search` keyword, `lightning_component`, `slds_class`, or `styling_hook`.
+- **Use the MCP tool `guide_slds_blueprints`** for a comprehensive overview of all 85 available blueprints organized by category, and general guidance on how to use them.
+
+---
+
+### Utility Classes
+
+When composing modular components on a page, or styling existing components, check for an SLDS utility class.
+
+**Principle:** Always use SLDS utility classes for spacing, alignment, text, and sizing. Avoid custom classes for these purposes.
+
+**For spacing specifically — read `docs/spacing-rules.md` and follow the SPACING RULES section above.** It covers the `lightning-card` body wrapper trap, density-aware classes, tab-panel double-padding, `pull-to-boundary` pitfalls, and which scale band to pick. These are the most common reasons UI ships with the wrong gaps.
+
+**Utility Class Resources:**
+- Lightning Design System Components
+- Common utility categories:
+  - **Spacing (fixed)**: `slds-m-around_*`, `slds-p-horizontal_*`, `slds-p-around_small`
+  - **Spacing (density-aware)**: `slds-var-p-around_*`, `slds-var-m-around_*` — use for cards, lists, tables, page headers, tabs, form rows
+  - **Layout/Grid**: `slds-grid`, `slds-wrap`, `slds-gutters_*`, `slds-size_1-of-1`, `slds-medium-size_1-of-2`
+  - **Text**: `slds-text-align_center`, `slds-text-heading_medium`
+  - **Display**: `slds-show`, `slds-hide`
+
+---
+
+### Custom CSS with Styling Hooks
+
+If no utility class exists that meets your styling need, create custom CSS referencing the correct global styling hook.
+
+**Usage Guidelines:**
+- Global styling hooks are CSS variables: `background: var(--slds-g-color-surface-1, #fff);`
+- **Always provide a fallback value** for backwards compatibility
+- Use the Cosmos theme value as the fallback (reference the token .mdx files)
+- **Semantic Usage Only:** Never use a hook for an unintended purpose
+  - ❌ WRONG: `width: var(--slds-g-radius-border-circle)`
+  - ✅ CORRECT: `background-color: var(--slds-g-color-surface-1, #fff)`
+
+**Example Hook Categories:**
+- **Surface**: `--slds-g-color-surface-1`, `--slds-g-color-surface-2`
+- **Container**: `--slds-g-color-surface-container-1`, `--slds-g-color-surface-container-2`
+- **On-Surface**: `--slds-g-color-on-surface-1` (text/icons on surfaces)
+- **Accent**: `--slds-g-color-accent-1`, `--slds-g-color-accent-container-1`
+- **Border**: `--slds-g-color-border-1`, `--slds-g-color-border-accent-1`
+- **Feedback**: `--slds-g-color-error-1`, `--slds-g-color-success-1`, `--slds-g-color-warning-1`
+
+**Global Styling Hook Resources:**
+1. **Semantic Usage Guide** and **Token Value Reference** in Lightning Design System Components
+   
+---
+
+### Hard-Coded CSS Values
+
+Only use hard-coded values when no component, utility class, or styling hook exists.
+
+**Examples of acceptable hard-coded values:**
+- `height: 100%` (no utility class or styling hook available)
+- Percentages for custom layouts
+- Transform or animation values
+- Z-index
+
+---
+
+## REFERENCE DOCS
+
+### SLDS 2 Token Reference
+
+`docs/slds2-tokens-reference.md` — complete spacing scale, sizing scale, border-radius table, border-width table, typography scale, color hook families (surface, on-surface, border, brand, feedback), icon category rules, and CSS-property-to-hook mapping. Read this when picking any `--slds-g-*` hook or checking which border-radius, spacing, or sizing value applies to a given component type.
+
+### UI Pattern Docs
+
+`docs/ui-patterns/` contains pattern references for the six most common Salesforce page archetypes. Each doc has a Platform vs LWC split table, zone layouts, LBC recommendations, and confirmed SLDS hooks.
+
+| Pattern | File | Use when |
+|---|---|---|
+| Command Center | `docs/ui-patterns/command-center.md` | Operational monitoring, alert triage, role-based workspace |
+| Dashboard | `docs/ui-patterns/dashboard.md` | KPI overview, home page, executive summary |
+| Record Detail | `docs/ui-patterns/record-detail.md` | Single record view with fields, activity timeline, related lists |
+| List View | `docs/ui-patterns/list-view.md` | Object list, filtered queue, sortable data table |
+| Console Navigation | `docs/ui-patterns/console-navigation.md` | Multi-record workspace, service agent tool |
+| Forms | `docs/ui-patterns/forms.md` | Any page with input fields, data entry, create/edit flows |
+
+---

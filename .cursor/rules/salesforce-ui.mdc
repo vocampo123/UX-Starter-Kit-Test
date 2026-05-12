@@ -1,0 +1,134 @@
+---
+description: Salesforce LWC/SLDS 2 — mandatory UI standards for every task in this repo
+alwaysApply: true
+---
+
+# This is a Salesforce App — Use LWC and SLDS 2, Nothing Else
+
+Every UI element must use Salesforce-native components. This is non-negotiable for local prototypes (`src/modules/`) and org-deployable components (`force-app/`) alike. Never build with raw HTML, Bootstrap, Tailwind, or custom CSS when a Salesforce-native option exists.
+
+---
+
+## Before writing any markup — ask this first
+
+> **Does a `<lightning-*>` component exist for what I'm building?**
+
+If yes → use it. If no → use an SLDS Blueprint class. If no blueprint → use `var(--slds-g-*)` hooks with a fallback. Custom HTML and CSS are the last resort, not the default.
+
+---
+
+## LBC substitution table — this replaces raw HTML
+
+| Need | Use | Never |
+|------|-----|-------|
+| Button | `<lightning-button>` / `<lightning-button-icon>` / `<lightning-button-menu>` | `<button>` |
+| Text input | `<lightning-input>` | `<input>` |
+| Dropdown / select | `<lightning-combobox>` | `<select>` |
+| Multiline text | `<lightning-textarea>` | `<textarea>` |
+| Checkbox / radio | `<lightning-checkbox-group>` / `<lightning-radio-group>` | `<input type="checkbox/radio">` |
+| Data table | `<lightning-datatable>` | `<table>` with CSS |
+| Card | `<lightning-card>` | custom div |
+| Tabs | `<lightning-tabset>` + `<lightning-tab>` | `<ul>` tab strip |
+| Accordion | `<lightning-accordion>` + `<lightning-accordion-section>` | `<details>` |
+| Icon | `<lightning-icon>` | SVG sprite / `<img>` / font icon |
+| Modal | extend `lightning/modal` (see `force-app/main/default/lwc/demoModal/`) | custom backdrop |
+| Spinner | `<lightning-spinner>` | custom CSS spinner |
+| Avatar | `<lightning-avatar>` | `<img>` |
+| Progress / path | `<lightning-progress-indicator>` / `<lightning-path>` | custom steps |
+
+---
+
+## Styling — `--slds-g-*` hooks with fallback, always
+
+```css
+/* Correct */
+background: var(--slds-g-color-surface-1, #fff);
+color: var(--slds-g-color-on-surface-2, #181818);
+padding: var(--slds-g-spacing-4, 1rem);
+border-radius: var(--slds-g-radius-border-2, 0.25rem);
+
+/* Wrong — these are errors */
+background: #ffffff;
+padding: 16px;
+color: #333;
+```
+
+Font sizes: use `--slds-g-font-scale-*` (not `--slds-g-font-size-N` — that pattern doesn't exist).  
+Color hooks always end in a number: `--slds-g-color-surface-1`, not `--slds-g-color-surface`.
+
+---
+
+## `<lightning-card>` body always needs a padding wrapper
+
+```html
+<lightning-card>
+  <div class="slds-var-p-around_medium">
+    <!-- content here — card slot has zero default padding -->
+  </div>
+</lightning-card>
+```
+
+---
+
+## Icons — category decision guide
+
+Always use `<lightning-icon icon-name="category:symbol">`. Never inline SVG, `<img>`, or font icons.
+
+| Category | Use for | Rule of thumb |
+|----------|---------|---------------|
+| `utility:` | UI controls — search, filter, settings, chevrons, close | It's a UI concept, not a Salesforce object |
+| `standard:` | Salesforce objects — Account, Contact, Case, Opportunity | It's a noun/record type |
+| `action:` | Task verbs — save, delete, edit, add (mobile action bar) | Text could start with "Do…" |
+| `doctype:` | File formats — PDF, Word, Excel | It's a file type |
+| `custom:` | Custom objects when no `standard:` fits | Custom object placeholder |
+
+Three rules that prevent the most common icon mistakes:
+1. **`standard:` icons must keep their circle background** — `<lightning-icon>` applies it automatically; never strip it with CSS
+2. **`utility:` color inherits from adjacent text** — never hardcode fill color
+3. **Always set `alternative-text` and `title`** — describe purpose, not appearance (`"Upload file"` not `"paperclip"`); use `alternative-text=""` + `aria-hidden="true"` for purely decorative icons
+
+Sizes: `xx-small` → `x-small` → `small` (default utility) → `medium` (default object) → `large` (hero only)
+
+## Hard stops — these are errors
+
+- No Bootstrap, Tailwind, Material UI, or any non-SLDS CSS
+- No `var(--lwc-*)` tokens — SLDS 1 is deprecated; use `--slds-g-*` only
+- No hardcoded hex colors or `px` values when a hook exists
+- No `!important` or `style=""` attributes
+- No fabricated SLDS class names — verify every class against the spec
+- No inline SVG icon sprites
+
+---
+
+## After every UI change
+
+```bash
+npx @salesforce-ux/slds-linter@latest lint <changed-file>
+```
+
+Full repo pass: `npm run check`
+
+---
+
+## Three deployment surfaces — ask before building
+
+| Surface | Org type | Data | What to build |
+|---------|----------|------|---------------|
+| **Local prototype** | None — Vite only | JS fixtures in `src/modules/data/` | LBC/SLDS UI only, no wiring |
+| **Front-end org** | Evergreen, sandbox, scratch without cloud perms | None — UI shell only | LBC/SLDS UI only, no wiring |
+| **Enabled org** | Sandbox or production with cloud/object permissions | Live Salesforce data | LBC/SLDS UI + data wiring |
+
+Always ask: **Is this front-end only, or does it connect to real org data?**
+
+- Front-end only → no `@wire`, no Apex, use empty/hardcoded states
+- Enabled org with data → invoke `prd-to-salesforce-ui` skill before choosing a wire adapter or writing Apex
+
+## Where to put new code
+
+| What | Where |
+|------|-------|
+| Deployable component | `force-app/main/default/lwc/<name>/` |
+| Route-level local view | `src/modules/page/<name>/` + route in `src/routes.config.js` + import in `shell/app/app.js` |
+| Reusable local UI | `src/modules/ui/<name>/` |
+
+Deep reference: `.agent/skills/afv-library/applying-slds/SKILL.md` (blueprints, hook catalog, icon search, blueprint exceptions)

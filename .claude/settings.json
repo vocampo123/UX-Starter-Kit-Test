@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__figma__get_design_context",
+      "mcp__figma__get_context_for_code_connect",
+      "mcp__figma__get_metadata",
+      "mcp__figma__get_code_connect_suggestions",
+      "mcp__plugin_browser_browser__browser_navigate",
+      "mcp__plugin_browser_browser__browser_screenshot",
+      "Bash(npx @salesforce-ux/slds-linter@latest lint *)"
+    ]
+  }
+}
