@@ -43,7 +43,19 @@
             </div>
         </div>
 
-        <!-- Row 2: detail field strip (record-home variant only) -->
+        <!-- Row 2: item count + list controls (related-list variant) -->
+        <template lwc:if={hasItemCount}>
+            <div class="slds-page-header__row">
+                <div class="slds-has-flexi-truncate">
+                    <p class="slds-text-body_small slds-text-color_weak">{itemCount}</p>
+                </div>
+                <div class="slds-no-flex">
+                    <slot name="controls"></slot>
+                </div>
+            </div>
+        </template>
+
+        <!-- Row 2: detail field strip (record-home variant) -->
         <template lwc:if={hasDetails}>
             <div class="slds-page-header__row slds-page-header__row_gutters">
                 <div class="slds-page-header__col-details">

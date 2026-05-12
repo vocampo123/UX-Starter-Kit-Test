@@ -1,0 +1,14 @@
+.contacts-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.contacts-table-wrapper {
+    width: 100%;
+    overflow: clip;
+}
+
+.contacts-datatable {
+    display: block;
+    width: 100%;
+}

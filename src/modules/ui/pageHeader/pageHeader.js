@@ -6,6 +6,7 @@ export default class PageHeader extends LightningElement {
     @api objectLabel;
     @api title = '';
     @api metaText;
+    @api itemCount;
 
     get headerClass() {
         const base = 'slds-page-header';
@@ -13,10 +14,14 @@ export default class PageHeader extends LightningElement {
     }
 
     get hasBreadcrumbs() {
-        return this.variant === 'object-home';
+        return this.variant === 'object-home' || this.variant === 'base' || this.variant === 'related-list';
     }
 
     get hasDetails() {
         return this.variant === 'record-home';
+    }
+
+    get hasItemCount() {
+        return this.variant === 'related-list' && this.itemCount != null;
     }
 }

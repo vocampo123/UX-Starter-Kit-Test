@@ -1,11 +1,74 @@
 <template>
-    <lightning-modal-header label="Demo Modal">
-        This is a demo modal built with Lightning Base Components.
+    <lightning-modal-header label="New Contact">
     </lightning-modal-header>
     <lightning-modal-body>
-        <p class="slds-p-around_small">
-            Click <strong>Confirm</strong> to close with a result, or <strong>Cancel</strong> to dismiss.
-        </p>
+        <template if:false={isSaving}>
+            <div class="slds-var-p-around_medium">
+                <p class="slds-text-body_regular slds-text-color_weak slds-m-bottom_medium">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fields marked with an asterisk are required.
+                </p>
+                <div class="slds-form slds-form_stacked">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item">
+                            <lightning-input
+                                label="First Name"
+                                placeholder="Enter first name..."
+                                required
+                                value={firstName}
+                                onchange={handleFirstNameChange}>
+                            </lightning-input>
+                        </div>
+                        <div class="slds-form__item">
+                            <lightning-input
+                                label="Last Name"
+                                placeholder="Enter last name..."
+                                required
+                                value={lastName}
+                                onchange={handleLastNameChange}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item">
+                            <lightning-input
+                                type="email"
+                                label="Email"
+                                placeholder="user@example.com"
+                                value={email}
+                                onchange={handleEmailChange}>
+                            </lightning-input>
+                        </div>
+                        <div class="slds-form__item">
+                            <lightning-input
+                                type="tel"
+                                label="Phone"
+                                placeholder="(555) 555-5555"
+                                value={phone}
+                                onchange={handlePhoneChange}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                    <lightning-combobox
+                        label="Account Name"
+                        placeholder="Select an account"
+                        options={accountOptions}
+                        value={selectedAccount}
+                        onchange={handleAccountChange}>
+                    </lightning-combobox>
+                    <lightning-textarea
+                        label="Description"
+                        placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+                        value={description}
+                        onchange={handleDescriptionChange}>
+                    </lightning-textarea>
+                </div>
+            </div>
+        </template>
+        <template if:true={isSaving}>
+            <div class="demo-modal-spinner">
+                <lightning-spinner alternative-text="Saving..." size="medium"></lightning-spinner>
+            </div>
+        </template>
     </lightning-modal-body>
     <lightning-modal-footer>
         <lightning-button
@@ -15,10 +78,10 @@
             title="Cancel">
         </lightning-button>
         <lightning-button
-            label="Confirm"
+            label="Save"
             variant="brand"
-            onclick={handleConfirm}
-            title="Confirm"
+            onclick={handleSave}
+            title="Save"
             class="slds-m-left_x-small">
         </lightning-button>
     </lightning-modal-footer>

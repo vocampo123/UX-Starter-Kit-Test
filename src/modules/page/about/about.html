@@ -1,0 +1,631 @@
+<template>
+    <div class="about-page slds-container_x-large slds-container_center slds-p-horizontal_large">
+
+        <!-- Page Header -->
+        <ui-page-header
+            variant="object-home"
+            icon-name="standard:knowledge"
+            object-label="Starter Kit"
+            title="About This Kit">
+            <lightning-breadcrumbs slot="breadcrumbs">
+                <lightning-breadcrumb label="Home" href="/"></lightning-breadcrumb>
+            </lightning-breadcrumbs>
+        </ui-page-header>
+
+        <!-- What This Is -->
+        <lightning-card title="What This Is">
+            <div class="slds-var-p-around_medium">
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    This starter kit is a local Salesforce UI prototyping environment. It runs in your browser using Vite, LWC, SLDS 2, and Lightning Base Components — the same components and design system that power Salesforce.
+                </p>
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    It solves a specific problem: agents building Salesforce UI without context produce misaligned layouts, wrong spacing, and components that don't match how Salesforce actually looks. This kit ships with pre-configured guidelines so the agent knows the rules before it writes a line of code.
+                </p>
+                <div class="slds-grid slds-wrap slds-gutters_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-bottom_small">
+                        <div class="about-value-card">
+                            <lightning-icon icon-name="utility:desktop" size="small" class="slds-m-bottom_x-small"></lightning-icon>
+                            <p class="slds-text-heading_small slds-m-bottom_xx-small">Local Prototype</p>
+                            <p class="slds-text-body_small slds-text-color_weak">Run Salesforce-style UI at localhost:3000 with hot reload. No org needed.</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-bottom_small">
+                        <div class="about-value-card">
+                            <lightning-icon icon-name="utility:upload" size="small" class="slds-m-bottom_x-small"></lightning-icon>
+                            <p class="slds-text-heading_small slds-m-bottom_xx-small">Org Deployment</p>
+                            <p class="slds-text-body_small slds-text-color_weak">Deploy reusable LWC components under force-app/ to any Salesforce org.</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-bottom_small">
+                        <div class="about-value-card">
+                            <lightning-icon icon-name="utility:knowledge_base" size="small" class="slds-m-bottom_x-small"></lightning-icon>
+                            <p class="slds-text-heading_small slds-m-bottom_xx-small">Agent-Ready Rules</p>
+                            <p class="slds-text-body_small slds-text-color_weak">Pre-configured guidelines so AI produces correct Salesforce UI on the first try.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </lightning-card>
+
+        <!-- Skills -->
+        <lightning-card title="Agent Skills">
+            <div class="slds-var-p-around_medium">
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    Skills are step-by-step guides the agent follows automatically. Trigger them by describing what you need — the agent selects the right skill based on context. To start guided setup, say <strong>"help me get started."</strong>
+                </p>
+                <div class="skills-grid">
+                    <template for:each={skills} for:item="skill">
+                        <div key={skill.id} class="skill-card">
+                            <div class="skill-card__header">
+                                <lightning-icon icon-name={skill.icon} size="small"></lightning-icon>
+                                <p class="slds-text-heading_small slds-m-left_x-small">{skill.name}</p>
+                            </div>
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">{skill.description}</p>
+                            <p class="skill-trigger slds-text-body_small slds-m-top_x-small">
+                                <strong>Trigger: </strong>{skill.trigger}
+                            </p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </lightning-card>
+
+        <!-- Design Guidelines -->
+        <lightning-card title="Design Guidelines">
+            <div class="slds-var-p-around_medium">
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    These rules are loaded into the agent before it writes any UI code. They prevent the most common agent mistakes: wrong spacing, broken layouts, non-standard components.
+                </p>
+                <div class="guidelines-grid">
+                    <template for:each={guidelines} for:item="guideline">
+                        <div key={guideline.id} class="guideline-card">
+                            <div class="guideline-card__header">
+                                <lightning-badge label={guideline.category}></lightning-badge>
+                                <p class="slds-text-heading_small slds-m-top_x-small">{guideline.name}</p>
+                            </div>
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">{guideline.description}</p>
+                            <p class="slds-text-body_small slds-m-top_x-small guideline-example">
+                                <strong>Example: </strong>{guideline.example}
+                            </p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </lightning-card>
+
+        <!-- Local vs Org -->
+        <lightning-card title="Local Prototype vs Org Deployment">
+            <div class="slds-var-p-around_medium">
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    You can build locally first, then deploy. Both targets use the same LWC components — the difference is where they run.
+                </p>
+                <div class="comparison-grid">
+                    <div class="comparison-col">
+                        <div class="comparison-col__header comparison-col__header_local">
+                            <lightning-icon icon-name="utility:desktop" size="small"></lightning-icon>
+                            <p class="slds-text-heading_small slds-m-left_x-small">Local Prototype</p>
+                        </div>
+                        <ul class="slds-list_dotted slds-m-top_small">
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Files live in <code>src/modules/page/</code></li>
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Runs at <code>localhost:3000</code> with hot reload</li>
+                            <li class="slds-text-body_small slds-m-bottom_x-small">No Salesforce org required</li>
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Share via GitHub Pages for stakeholder review</li>
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Uses mock data from <code>src/modules/data/</code></li>
+                        </ul>
+                    </div>
+                    <div class="comparison-col">
+                        <div class="comparison-col__header comparison-col__header_org">
+                            <lightning-icon icon-name="utility:salesforce1" size="small"></lightning-icon>
+                            <p class="slds-text-heading_small slds-m-left_x-small">Org Deployment</p>
+                        </div>
+                        <ul class="slds-list_dotted slds-m-top_small">
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Files live in <code>force-app/main/default/lwc/</code></li>
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Deployed to Salesforce via SF CLI</li>
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Requires org auth + Salesforce CLI</li>
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Placed on pages via App Builder FlexiPages</li>
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Real data from Salesforce objects</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </lightning-card>
+
+        <!-- Live Component Samples -->
+        <lightning-card title="Component Samples">
+            <!-- Intro text gets its own padded wrapper — tabset is NOT wrapped -->
+            <div class="slds-var-p-horizontal_medium slds-var-p-top_medium slds-m-bottom_medium">
+                <p class="slds-text-body_regular">
+                    Live Lightning Base Components. All interactive — click buttons, change values, open the modal.
+                </p>
+            </div>
+            <!-- Tabset sits directly in card slot; .samples-tabset zeroes panel block padding -->
+            <lightning-tabset class="samples-tabset">
+
+                <!-- Console Navigation Sample -->
+                <lightning-tab label="Console Nav">
+                    <div class="sample-tab-body">
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_medium">
+                            Console navigation uses the <code>slds-context-bar</code> blueprint. Primary tabs open records; the optional subtab row opens related records without losing context on the primary tab.
+                        </p>
+                        <div class="slds-m-bottom_medium">
+                            <lightning-button-group>
+                                <lightning-button
+                                    label="Plain Console"
+                                    variant={noSubtabsVariant}
+                                    data-subtabs="false"
+                                    onclick={handleSubtabsToggle}>
+                                </lightning-button>
+                                <lightning-button
+                                    label="Console + Subtabs"
+                                    variant={withSubtabsVariant}
+                                    data-subtabs="true"
+                                    onclick={handleSubtabsToggle}>
+                                </lightning-button>
+                            </lightning-button-group>
+                        </div>
+                        <div class="sample-preview">
+
+                            <!-- Primary console tab bar (slds-context-bar blueprint) -->
+                            <div class="slds-context-bar">
+                                <!-- Primary: waffle + app name -->
+                                <div class="slds-context-bar__primary">
+                                    <div class="slds-context-bar__item slds-context-bar__dropdown-trigger slds-dropdown-trigger slds-dropdown-trigger_click">
+                                        <div class="slds-context-bar__icon-action slds-p-right_none">
+                                            <lightning-button-icon
+                                                icon-name="utility:waffle"
+                                                variant="bare"
+                                                alternative-text="App Launcher"
+                                                title="App Launcher"
+                                                class="slds-context-bar__button">
+                                            </lightning-button-icon>
+                                        </div>
+                                        <span class="slds-context-bar__label-action slds-context-bar__app-name">
+                                            <span class="slds-truncate" title="Service Console">Service Console</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Secondary: primary tabs -->
+                                <nav class="slds-context-bar__secondary" role="navigation" aria-label="App Navigation Menu">
+                                    <ul class="slds-grid">
+                                        <!-- Object tab — no close button on object-level tabs -->
+                                        <li class="slds-context-bar__item">
+                                            <a class="slds-context-bar__label-action" role="menuitem" title="Cases">
+                                                <span class="slds-truncate">Cases</span>
+                                            </a>
+                                        </li>
+                                        <!-- Active record tab — has icon + close button + accent underline -->
+                                        <li class="slds-context-bar__item slds-is-active" aria-current="page">
+                                            <a class="slds-context-bar__label-action" role="menuitem" title="Sarah White">
+                                                <lightning-icon icon-name="standard:contact" size="x-small" alternative-text="Contact" class="slds-m-right_xx-small"></lightning-icon>
+                                                <span class="slds-truncate">Sarah White</span>
+                                            </a>
+                                            <div class="slds-context-bar__icon-action slds-context-bar__icon-action_end slds-p-left_none">
+                                                <lightning-button-icon icon-name="utility:close" variant="bare" size="x-small" alternative-text="Close Sarah White" title="Close"></lightning-button-icon>
+                                            </div>
+                                                        </li>
+                                        <!-- Second record tab -->
+                                        <li class="slds-context-bar__item">
+                                            <a class="slds-context-bar__label-action" role="menuitem" title="Case #00001042">
+                                                <lightning-icon icon-name="standard:case" size="x-small" alternative-text="Case" class="slds-m-right_xx-small"></lightning-icon>
+                                                <span class="slds-truncate">Case #00001042</span>
+                                            </a>
+                                            <div class="slds-context-bar__icon-action slds-context-bar__icon-action_end slds-p-left_none">
+                                                <lightning-button-icon icon-name="utility:close" variant="bare" size="x-small" alternative-text="Close Case" title="Close"></lightning-button-icon>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+
+                            <!-- Subtab row — Console + Subtabs variant -->
+                            <!-- Each subtab is a related record opened from within the active primary tab -->
+                            <template if:true={showSubtabs}>
+                                <div class="slds-context-bar about-subtab-bar">
+                                    <nav class="slds-context-bar__secondary" role="navigation" aria-label="Subtabs">
+                                        <ul class="slds-grid">
+                                            <li class="slds-context-bar__item slds-is-active" aria-current="page">
+                                                <a class="slds-context-bar__label-action" role="menuitem" title="Details">
+                                                    <lightning-icon icon-name="standard:contact" size="x-small" alternative-text="Contact" class="slds-m-right_xx-small"></lightning-icon>
+                                                    <span class="slds-truncate">Details</span>
+                                                </a>
+                                                <div class="slds-context-bar__icon-action slds-context-bar__icon-action_end slds-p-left_none">
+                                                    <lightning-button-icon icon-name="utility:close" variant="bare" size="x-small" alternative-text="Close" title="Close"></lightning-button-icon>
+                                                </div>
+                                                <div class="about-console-tab-indicator"></div>
+                                            </li>
+                                            <li class="slds-context-bar__item">
+                                                <a class="slds-context-bar__label-action" role="menuitem" title="Case #00001042">
+                                                    <lightning-icon icon-name="standard:case" size="x-small" alternative-text="Case" class="slds-m-right_xx-small"></lightning-icon>
+                                                    <span class="slds-truncate">Case #00001042</span>
+                                                </a>
+                                                <div class="slds-context-bar__icon-action slds-context-bar__icon-action_end slds-p-left_none">
+                                                    <lightning-button-icon icon-name="utility:close" variant="bare" size="x-small" alternative-text="Close" title="Close"></lightning-button-icon>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </template>
+
+                            <!-- Placeholder page body -->
+                            <div class="about-console-body">
+                                <p class="slds-text-body_small slds-text-color_weak">Record page content appears here.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </lightning-tab>
+
+                <!-- Page Header Sample -->
+                <lightning-tab label="Page Header">
+                    <div class="sample-tab-body">
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_medium">
+                            <code>ui-page-header</code> enforces correct background token, flex structure, and slot placement. Four variants: Base, Object Home, Record Home, and Related List.
+                        </p>
+                        <div class="slds-m-bottom_medium">
+                            <lightning-button-group>
+                                <lightning-button
+                                    label="Base"
+                                    variant={baseVariantBtn}
+                                    data-variant="base"
+                                    onclick={handleVariantToggle}>
+                                </lightning-button>
+                                <lightning-button
+                                    label="Object Home"
+                                    variant={objectHomeVariant}
+                                    data-variant="object-home"
+                                    onclick={handleVariantToggle}>
+                                </lightning-button>
+                                <lightning-button
+                                    label="Record Home"
+                                    variant={recordHomeVariant}
+                                    data-variant="record-home"
+                                    onclick={handleVariantToggle}>
+                                </lightning-button>
+                                <lightning-button
+                                    label="Related List"
+                                    variant={relatedListVariant}
+                                    data-variant="related-list"
+                                    onclick={handleVariantToggle}>
+                                </lightning-button>
+                            </lightning-button-group>
+                        </div>
+                        <div class="sample-preview">
+                            <ui-page-header
+                                variant={headerVariant}
+                                icon-name={headerIconName}
+                                object-label={headerObjectLabel}
+                                title={headerTitle}
+                                meta-text={headerMetaText}
+                                item-count={headerItemCount}>
+
+                                <!-- Breadcrumbs: base, object-home, related-list -->
+                                <template if:true={isBase}>
+                                    <lightning-breadcrumbs slot="breadcrumbs">
+                                        <lightning-breadcrumb label="Home" href="#"></lightning-breadcrumb>
+                                    </lightning-breadcrumbs>
+                                </template>
+                                <template if:true={isObjectHome}>
+                                    <lightning-breadcrumbs slot="breadcrumbs">
+                                        <lightning-breadcrumb label="Home" href="#"></lightning-breadcrumb>
+                                    </lightning-breadcrumbs>
+                                </template>
+                                <template if:true={isRelatedList}>
+                                    <lightning-breadcrumbs slot="breadcrumbs">
+                                        <lightning-breadcrumb label="Accounts" href="#"></lightning-breadcrumb>
+                                        <lightning-breadcrumb label="Company One" href="#"></lightning-breadcrumb>
+                                    </lightning-breadcrumbs>
+                                </template>
+
+                                <!-- Actions -->
+                                <template if:true={isObjectHome}>
+                                    <div slot="actions">
+                                        <lightning-button-group>
+                                            <lightning-button label="New" variant="neutral"></lightning-button>
+                                            <lightning-button-menu alternative-text="More Actions" variant="border-filled" menu-alignment="right">
+                                                <lightning-menu-item label="Import" value="import"></lightning-menu-item>
+                                                <lightning-menu-item label="Printable View" value="print"></lightning-menu-item>
+                                            </lightning-button-menu>
+                                        </lightning-button-group>
+                                    </div>
+                                </template>
+                                <template if:true={isRecordHome}>
+                                    <div slot="actions">
+                                        <lightning-button-group>
+                                            <lightning-button label="Follow" variant="neutral"></lightning-button>
+                                            <lightning-button label="Edit" variant="neutral"></lightning-button>
+                                            <lightning-button label="Delete" variant="neutral"></lightning-button>
+                                            <lightning-button-menu alternative-text="More Actions" variant="border-filled" menu-alignment="right">
+                                                <lightning-menu-item label="Clone" value="clone"></lightning-menu-item>
+                                                <lightning-menu-item label="Log a Call" value="log"></lightning-menu-item>
+                                            </lightning-button-menu>
+                                        </lightning-button-group>
+                                    </div>
+                                </template>
+                                <template if:true={isRelatedList}>
+                                    <div slot="actions">
+                                        <lightning-button-group>
+                                            <lightning-button label="Add Contact" variant="neutral"></lightning-button>
+                                            <lightning-button-menu alternative-text="More Actions" variant="border-filled" menu-alignment="right">
+                                                <lightning-menu-item label="Merge Contacts" value="merge"></lightning-menu-item>
+                                            </lightning-button-menu>
+                                        </lightning-button-group>
+                                    </div>
+                                </template>
+
+                                <!-- Detail strip: record-home only -->
+                                <template if:true={isRecordHome}>
+                                    <li slot="details" class="slds-page-header__detail-block">
+                                        <p class="slds-text-title slds-truncate" title="Account Name">Account Name</p>
+                                        <p class="slds-truncate">Acme Corp</p>
+                                    </li>
+                                    <li slot="details" class="slds-page-header__detail-block">
+                                        <p class="slds-text-title slds-truncate" title="Email">Email</p>
+                                        <lightning-formatted-email value="jane@acme.com"></lightning-formatted-email>
+                                    </li>
+                                    <li slot="details" class="slds-page-header__detail-block">
+                                        <p class="slds-text-title slds-truncate" title="Phone">Phone</p>
+                                        <lightning-formatted-phone value="4155551234"></lightning-formatted-phone>
+                                    </li>
+                                    <li slot="details" class="slds-page-header__detail-block">
+                                        <p class="slds-text-title slds-truncate" title="Title">Title</p>
+                                        <p class="slds-truncate">VP of Sales</p>
+                                    </li>
+                                </template>
+
+                            </ui-page-header>
+                        </div>
+                    </div>
+                </lightning-tab>
+
+                <!-- Related List Sample -->
+                <lightning-tab label="Related List">
+                    <div class="sample-tab-body">
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_medium">
+                            <code>lightning-datatable</code> sits directly in the card slot with <code>column-widths-mode="auto"</code>. No wrapper div between card and table.
+                        </p>
+                        <div class="about-related-layout">
+                            <lightning-card class="about-related-card" title="Opportunities (3)" icon-name="standard:opportunity">
+                                <lightning-button
+                                    slot="actions"
+                                    label="New"
+                                    variant="neutral">
+                                </lightning-button>
+                                <lightning-datatable
+                                    class="about-related-table"
+                                    key-field="id"
+                                    data={opportunityData}
+                                    columns={opportunityColumns}
+                                    column-widths-mode="auto"
+                                    hide-checkbox-column>
+                                </lightning-datatable>
+                            </lightning-card>
+                        </div>
+                    </div>
+                </lightning-tab>
+
+                <lightning-tab label="Inputs">
+                    <div class="sample-tab-body">
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_medium">
+                            <code>lightning-input</code> handles all single-line entry. States (required, error, disabled), compound rows, view mode, and textarea are shown below.
+                        </p>
+
+                        <!-- States: Base, Required, Error, Disabled -->
+                        <p class="slds-text-title slds-m-bottom_x-small">Input States</p>
+                        <div class="slds-form slds-form_stacked slds-m-bottom_medium">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item">
+                                    <lightning-input
+                                        label="Base"
+                                        placeholder="Placeholder text...">
+                                    </lightning-input>
+                                </div>
+                                <div class="slds-form__item">
+                                    <lightning-input
+                                        label="Required"
+                                        placeholder="Placeholder text..."
+                                        required>
+                                    </lightning-input>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item">
+                                    <lightning-input
+                                        label="Error"
+                                        value="invalid value"
+                                        message-when-value-missing="This field is required."
+                                        required
+                                        class="about-input-error">
+                                    </lightning-input>
+                                </div>
+                                <div class="slds-form__item">
+                                    <lightning-input
+                                        label="Disabled"
+                                        placeholder="Not editable"
+                                        disabled>
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- View Mode: static display fields -->
+                        <p class="slds-text-title slds-m-bottom_x-small">View Mode</p>
+                        <div class="slds-form slds-form_stacked slds-m-bottom_medium">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item">
+                                    <div class="slds-form-element slds-form-element_stacked">
+                                        <span class="slds-form-element__label slds-text-title">First Name</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{viewFirstName}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item">
+                                    <div class="slds-form-element slds-form-element_stacked">
+                                        <span class="slds-form-element__label slds-text-title">Last Name</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{viewLastName}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item">
+                                    <div class="slds-form-element slds-form-element_stacked">
+                                        <span class="slds-form-element__label slds-text-title">Email</span>
+                                        <div class="slds-form-element__control">
+                                            <lightning-formatted-email value={viewEmail}></lightning-formatted-email>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item">
+                                    <div class="slds-form-element slds-form-element_stacked">
+                                        <span class="slds-form-element__label slds-text-title">Phone</span>
+                                        <div class="slds-form-element__control">
+                                            <lightning-formatted-phone value={viewPhone}></lightning-formatted-phone>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Textarea -->
+                        <p class="slds-text-title slds-m-bottom_x-small">Textarea</p>
+                        <div class="slds-form slds-form_stacked">
+                            <lightning-textarea
+                                label="Description"
+                                placeholder="Enter a description..."
+                                value={textAreaValue}
+                                onchange={handleTextAreaChange}>
+                            </lightning-textarea>
+                        </div>
+                    </div>
+                </lightning-tab>
+
+                <lightning-tab label="Selection">
+                    <div class="sample-tab-body">
+                        <div class="slds-grid slds-wrap slds-gutters_small">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                <lightning-checkbox-group
+                                    label="Checkbox Group"
+                                    options={checkboxOptions}
+                                    value={checkboxGroupValues}
+                                    onchange={handleCheckboxChange}>
+                                </lightning-checkbox-group>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                <lightning-radio-group
+                                    label="Radio Group"
+                                    options={radioOptions}
+                                    value={selectedRadioValue}
+                                    onchange={handleRadioChange}>
+                                </lightning-radio-group>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                <lightning-combobox
+                                    label="Combobox"
+                                    placeholder="Select an option"
+                                    options={comboboxOptions}
+                                    value={selectedComboboxValue}
+                                    onchange={handleComboboxChange}>
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                                <lightning-input
+                                    type="toggle"
+                                    label="Enable Feature"
+                                    checked={toggleValue}
+                                    onchange={handleToggleChange}>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                </lightning-tab>
+
+                <lightning-tab label="Buttons &amp; Icons">
+                    <div class="sample-tab-body">
+                        <p class="slds-text-heading_small slds-m-bottom_small">Button Variants</p>
+                        <div class="about-button-row slds-m-bottom_medium">
+                            <lightning-button label="Base" onclick={handleButtonClick}></lightning-button>
+                            <lightning-button variant="brand" label="Brand" onclick={handleBrandButton}></lightning-button>
+                            <lightning-button variant="success" label="Success" onclick={handleSuccessButton}></lightning-button>
+                            <lightning-button variant="neutral" label="Neutral" onclick={handleNeutralButton}></lightning-button>
+                            <lightning-button variant="destructive" label="Destructive" onclick={handleDestructiveButton}></lightning-button>
+                        </div>
+                        <p class="slds-text-heading_small slds-m-bottom_small">Icon + Text</p>
+                        <div class="about-button-row slds-m-bottom_medium">
+                            <lightning-button icon-name="utility:add" label="New" variant="brand"></lightning-button>
+                            <lightning-button icon-name="utility:upload" label="Upload" variant="neutral"></lightning-button>
+                            <lightning-button icon-name="utility:download" label="Export" variant="neutral" icon-position="right"></lightning-button>
+                            <lightning-button icon-name="utility:delete" label="Delete" variant="destructive"></lightning-button>
+                        </div>
+                        <p class="slds-text-heading_small slds-m-bottom_small">Icon Buttons</p>
+                        <div class="about-button-row slds-m-bottom_medium">
+                            <lightning-button-icon icon-name="utility:download" variant="border" alternative-text="Download" title="Download"></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:edit" variant="border" alternative-text="Edit" title="Edit"></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:delete" variant="border" alternative-text="Delete" title="Delete"></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:refresh" variant="border" alternative-text="Refresh" title="Refresh"></lightning-button-icon>
+                        </div>
+                        <p class="slds-text-heading_small slds-m-bottom_small">Badges</p>
+                        <div class="about-badges">
+                            <lightning-badge label="Default"></lightning-badge>
+                            <lightning-badge label="Lightest" class="slds-badge_lightest"></lightning-badge>
+                            <lightning-badge label="Warning"></lightning-badge>
+                            <lightning-badge label="Error"></lightning-badge>
+                        </div>
+                    </div>
+                </lightning-tab>
+
+                <lightning-tab label="Modal &amp; Spinner">
+                    <div class="sample-tab-body">
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">
+                            Modals extend <code>lightning/modal</code> and compose <code>lightning-modal-header</code>, <code>lightning-modal-body</code>, and <code>lightning-modal-footer</code>. The spinner appears inside the body on save — replacing the form while the async operation completes.
+                        </p>
+                        <lightning-button
+                            label="New Contact"
+                            variant="brand"
+                            onclick={handleOpenModal}>
+                        </lightning-button>
+                        <div class="slds-m-top_medium">
+                            <p class="slds-text-title slds-m-bottom_x-small">Inline Spinner</p>
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">
+                                <code>lightning-spinner</code> used as a loading indicator within a container. Requires <code>slds-is-relative</code> on the parent.
+                            </p>
+                            <div class="slds-is-relative about-spinner-demo">
+                                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                            </div>
+                        </div>
+                    </div>
+                </lightning-tab>
+
+            </lightning-tabset>
+        </lightning-card>
+
+        <!-- Get Started -->
+        <lightning-card title="Get Started">
+            <div class="slds-var-p-around_medium">
+                <div class="slds-grid slds-wrap slds-gutters_medium">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <p class="slds-text-heading_small slds-m-bottom_x-small">Guided setup</p>
+                        <p class="slds-text-body_regular slds-m-bottom_medium">
+                            New here? Tell the agent: <strong>"help me get started"</strong> — it will walk you through local setup, org auth, and your first build.
+                        </p>
+                        <div class="get-started-prompt">
+                            <lightning-icon icon-name="utility:chat" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                            <span class="slds-text-body_small">"help me get started"</span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <p class="slds-text-heading_small slds-m-bottom_x-small">Important</p>
+                        <ul class="slds-list_dotted">
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Do <strong>not</strong> run <code>/init</code> — it overwrites the pre-configured agent files with generic ones.</li>
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Run <code>npm install</code> then <code>npm run dev</code> to start the local prototype.</li>
+                            <li class="slds-text-body_small slds-m-bottom_x-small">Node.js 20 or later is required.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </lightning-card>
+
+    </div>
+</template>

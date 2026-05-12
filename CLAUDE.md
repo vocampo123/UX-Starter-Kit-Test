@@ -631,6 +631,28 @@ Skills live under `.agent/skills/`. The `afv-library/` subfolder is synced from 
 | Console Navigation | `docs/ui-patterns/console-navigation.md` | Multi-record workspace, service agent tool, simultaneous record management |
 | Forms | `docs/ui-patterns/forms.md` | Any page with input fields, data entry, create/edit record flows |
 
+### Canonical examples — read these before building the matching pattern
+
+These are confirmed, visually-verified implementations in this repo. Read the relevant source file before writing new code for the same pattern — copy structure, not just intent.
+
+| Pattern | Source file | What it demonstrates |
+|---------|-------------|----------------------|
+| Activity timeline | `src/modules/page/dashboard/dashboard.html` — Recent Activity card | `slds-timeline` blueprint: `slds-timeline__item_call/email/event`, `slds-media_timeline`, `slds-media__figure_column`, `slds-timeline__icon`, `slds-timeline__trigger`, `slds-timeline__actions_inline`, expand chevron via `lightning-button-icon` |
+| Donut chart (SVG) | `src/modules/page/dashboard/dashboard.html` — Leads card | SVG `stroke-dasharray` multi-segment donut with SLDS token fill colors + legend |
+| Pipeline bar chart | `src/modules/page/dashboard/dashboard.html` — Opportunities card | Inline `style={stage.barStyle}` bar inside a relative-positioned track div; label/value layout |
+| Account tiles | `src/modules/page/dashboard/dashboard.html` — Accounts card | `lightning-avatar` + `slds-media slds-media_center` tile rows with border-bottom separators |
+| Dashboard page layout | `src/modules/page/dashboard/dashboard.html` | Three-column `slds-grid slds-gutters_small slds-wrap` with stacked cards per column |
+| Form inputs — all states | `src/modules/page/about/about.html` — Inputs tab | `slds-form slds-form_stacked` + `slds-form__row` + `slds-form__item`; Base, Required, Error (with `renderedCallback` auto-trigger), Disabled, View Mode (`slds-form-element_stacked` + `slds-form-element__static`), Textarea |
+| Modal with form + spinner | `force-app/main/default/lwc/demoModal/` | `LightningModal` extension, form-in-modal layout, `isSaving` spinner toggle, `setTimeout` close |
+| Page header — 4 variants | `src/modules/page/about/about.html` — Page Header tab | Base, Object Home, Record Home, Related List; toggled via `headerVariant` state with conditional slots |
+| Console navigation | `src/modules/page/about/about.html` — Console Nav tab | `slds-context-bar` + `slds-sub-tabs` blueprint; active indicator via native cosmos `slds-is-active::after` — no custom div needed |
+| Related list card | `src/modules/page/about/about.html` — Related Lists tab | `lightning-card.about-related-card` host CSS, flat datatable via `--_slds-c-datatable-color-border: transparent` |
+
+| Shadow & elevation scale | `src/modules/page/elevations/elevations.html` + `elevations.css` | Live shadow swatches for all 4 levels, directional panel variants, focus state, usage-by-component table, hard rules |
+| Icon catalog + guidelines | `src/modules/page/iconTest/iconTest.html` + `iconTest.js` | Complete icon listing with full `icon-name` values (`standard:account`, `utility:search`, etc.), category decision table, size reference strip, and hard rules |
+
+**Usage:** before building any of these patterns, open the source file listed above and read the verified markup. Do not reconstruct from the spec alone when a working reference exists.
+
 ### SLDS 2 token reference
 
 `docs/slds2-tokens-reference.md` — extracted from the SLDS 2 Style Guide. Contains the complete spacing scale, sizing scale, border-radius table, border-width table, typography scale, color hook families (surface, on-surface, border, brand, feedback), icon category rules, and the CSS-property-to-hook mapping table. Consult this when picking a `--slds-g-*` hook or checking which border-radius value applies to a given component type.

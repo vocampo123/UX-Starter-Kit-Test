@@ -63,14 +63,9 @@
     min-width: 0;
 }
 
-/* Nested container: sits inside the tab panel, fills full tab width,
-   has its own border and rounded corners matching the design screenshot.
-   Used for the Details form fields and Related List tables. */
+/* Nested container: layout wrapper inside tab panels. No visual boundary —
+   the outer lightning-card already owns the container boundary. */
 .console-record__nested-container {
-    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
-    border-radius: var(--slds-g-radius-border-2, 0.25rem);
-    background-color: var(--slds-g-color-surface-container-1, #fff);
-    overflow: hidden;
     box-sizing: border-box;
 }
 

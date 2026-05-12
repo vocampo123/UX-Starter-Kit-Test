@@ -2,22 +2,24 @@ import { LightningElement } from 'lwc';
 import { subscribe, navigate, linkHref } from '../../../router';
 import { routes } from '../../../routes.config';
 import { toggleSLDS, activeSLDSVersion, STORAGE_KEY_SLDS_VERSION } from '../../../build/slds-loader';
-import Home from 'page/home';
 import IconTest from 'page/iconTest';
-import User from 'page/user';
 import Contacts from 'page/contacts';
 import ContactDetail from 'page/contactDetail';
 import ConsoleRecord from 'page/consoleRecord';
+import Elevations from 'page/elevations';
+import Dashboard from 'page/dashboard';
+import About from 'page/about';
 import NotFound from 'page/notFound';
 
 /** Option A: explicit registration – add one import + one entry here when adding a route */
 const ROUTE_COMPONENTS = {
-    'page-home': Home,
     'page-icon-test': IconTest,
-    'page-user': User,
     'page-contacts': Contacts,
     'page-contact-detail': ContactDetail,
     'page-console-record': ConsoleRecord,
+    'page-elevations': Elevations,
+    'page-dashboard': Dashboard,
+    'page-about': About,
 };
 
 /** Derived from routes.config: component name → nav page id (includes navHighlight for child routes) */

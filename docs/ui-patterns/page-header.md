@@ -11,10 +11,11 @@ Page headers appear at the top of list views, object home pages, and record page
 
 Both components enforce:
 - Correct background token (`--slds-g-color-surface-container-2`)
-- Correct shadow elevation (`--slds-g-shadow-1`)
 - `slds-has-flexi-truncate` on title column (prevents actions being pushed off-screen)
 - `slds-no-flex` on actions column (never shrinks)
 - `size="large"` on object icon
+
+No drop shadow. List view and record page headers in Salesforce are flat — `--slds-g-shadow-1` is for elevated surfaces like modals and popovers, not page headers.
 
 If you hand-roll `slds-page-header` directly, you will get these wrong. Use the component.
 
@@ -24,17 +25,19 @@ If you hand-roll `slds-page-header` directly, you will get these wrong. Use the 
 
 | Property | Type | Default | Description |
 |---|---|---|---|
-| `variant` | `'object-home' \| 'record-home'` | `'object-home'` | Drives `slds-page-header_record-home` modifier and Row 2 detail strip |
-| `icon-name` | String | — | `lightning-icon` icon-name, e.g. `standard:contact` |
-| `object-label` | String | — | Object type shown above title, e.g. `Contact` |
+| `variant` | `'base' \| 'object-home' \| 'record-home' \| 'related-list'` | `'object-home'` | Drives layout, icon visibility, and Row 2 content |
+| `icon-name` | String | — | `lightning-icon` icon-name, e.g. `standard:contact`. Omit for `base` and `related-list`. |
+| `object-label` | String | — | Object type shown above title, e.g. `Contact`. Omit for `base` and `related-list`. |
 | `title` | String | `''` | Page or record title — auto-truncates |
 | `meta-text` | String | — | Secondary text below title, e.g. `Mark Jaeckal • Unlimited Customer` |
+| `item-count` | String | — | Item count string for `related-list` variant Row 2, e.g. `10 items · sorted by name` |
 
 | Slot | Description |
 |---|---|
-| `breadcrumbs` | `<lightning-breadcrumbs>` — shown for `object-home` variant |
+| `breadcrumbs` | `<lightning-breadcrumbs>` — shown for `base`, `object-home`, and `related-list` variants |
 | `actions` | Action buttons — placed in the `slds-no-flex` column (never shrinks) |
-| `details` | `<li class="slds-page-header__detail-block">` items — shown for `record-home` variant |
+| `controls` | List controls (icon buttons) — placed in the `slds-no-flex` column on Row 2, `related-list` variant only |
+| `details` | `<li class="slds-page-header__detail-block">` items — shown for `record-home` variant only |
 
 ---
 
@@ -42,13 +45,12 @@ If you hand-roll `slds-page-header` directly, you will get these wrong. Use the 
 
 Background token: **`--slds-g-color-surface-container-2`** (`#f3f3f3`) — confirmed from SLDS 2 Figma component library. All 6 variants share this token.
 
-| Variant | `variant` prop | Row 2 details strip | Typical actions |
+| Variant | `variant` prop | Row 2 | Typical actions |
 |---|---|---|---|
-| Base | `object-home` | No | None |
-| Object Home | `object-home` | No | Follow / Edit / Delete / Clone |
-| Object Home with list-view picker | `object-home` | No | New split button |
-| Record Home minimal | `record-home` | Yes (empty) | None |
-| Record Home full | `record-home` | Yes | Follow / New / Edit / Delete / Clone + overflow |
+| Base | `base` | No | None — breadcrumbs + title only, no icon |
+| Object Home | `object-home` | No | New / Import + overflow |
+| Record Home | `record-home` | Detail field strip (4–6 fields) | Follow / Edit / Delete / Clone + overflow |
+| Related List | `related-list` | Item count + list controls | Add [Object] + overflow |
 
 ---
 

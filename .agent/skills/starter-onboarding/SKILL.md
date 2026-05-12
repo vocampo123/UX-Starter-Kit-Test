@@ -27,6 +27,8 @@ Tell them this starter supports:
 - Local Salesforce-style prototyping with Vite, LWC, SLDS 2, Lightning Base Components, and synthetic shadow
 - Org deployment for reusable components under `force-app/`
 
+For a full interactive overview of skills, guidelines, and live component samples, point them to the **About page** at `http://localhost:3000/about` (available once the dev server is running).
+
 ---
 
 ## Step 3: Ask their goal

@@ -1,5 +1,5 @@
 <template>
-    <div class="slds-container_x-large slds-container_center slds-p-horizontal_large">
+    <div class="contacts-page">
 
         <ui-page-header
             variant="object-home"
@@ -32,7 +32,7 @@
         </ui-page-header>
 
         <!-- Meta row: item count + list controls -->
-        <div class="slds-grid slds-grid_vertical-align-center slds-var-p-vertical_x-small">
+        <div class="slds-grid slds-grid_vertical-align-center slds-var-p-vertical_x-small slds-p-horizontal_medium">
             <p class="slds-col slds-text-body_small slds-text-color_weak">{metaText}</p>
             <div class="slds-col_bump-left slds-grid slds-grid_vertical-align-center slds-gutters_xx-small">
                 <div class="slds-col">
@@ -65,16 +65,19 @@
             </div>
         </div>
 
-        <lightning-datatable
-            key-field="id"
-            data={filteredData}
-            columns={columns}
-            sorted-by={sortedBy}
-            sorted-direction={sortedDirection}
-            onsort={handleSort}
-            onrowaction={handleRowAction}
-            show-row-number-column>
-        </lightning-datatable>
+        <div class="contacts-table-wrapper">
+            <lightning-datatable
+                class="contacts-datatable"
+                key-field="id"
+                data={filteredData}
+                columns={columns}
+                sorted-by={sortedBy}
+                sorted-direction={sortedDirection}
+                onsort={handleSort}
+                onrowaction={handleRowAction}
+                show-row-number-column>
+            </lightning-datatable>
+        </div>
 
     </div>
 </template>

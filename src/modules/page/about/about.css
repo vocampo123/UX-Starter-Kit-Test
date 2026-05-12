@@ -1,0 +1,184 @@
+.about-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-6, 1.5rem);
+    padding-block: var(--slds-g-spacing-8, 2rem) var(--slds-g-spacing-10, 2.5rem);
+}
+
+/* Value proposition cards */
+.about-value-card {
+    padding: var(--slds-g-spacing-4, 1rem);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    height: 100%;
+}
+
+/* Skills grid — 2 columns on medium, 1 on small */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--slds-g-spacing-4, 1rem);
+}
+
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.skill-card {
+    padding: var(--slds-g-spacing-4, 1rem);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+}
+
+.skill-card__header {
+    display: flex;
+    align-items: center;
+}
+
+.skill-trigger {
+    color: var(--slds-g-color-brand-base-50, #0176d3);
+    font-style: italic;
+}
+
+/* Guidelines grid — 2 columns on medium, 1 on small */
+.guidelines-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--slds-g-spacing-4, 1rem);
+}
+
+@media (max-width: 768px) {
+    .guidelines-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.guideline-card {
+    padding: var(--slds-g-spacing-4, 1rem);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+}
+
+.guideline-card__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.guideline-example {
+    color: var(--slds-g-color-neutral-base-50, #706e6b);
+    border-left: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    padding-left: var(--slds-g-spacing-3, 0.75rem);
+}
+
+/* Local vs Org comparison */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--slds-g-spacing-6, 1.5rem);
+}
+
+@media (max-width: 768px) {
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.comparison-col__header {
+    display: flex;
+    align-items: center;
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+}
+
+.comparison-col__header_local {
+    background-color: var(--slds-g-color-palette-teal-10, #f0fffe);
+    color: var(--slds-g-color-palette-teal-50, #0b827c);
+}
+
+.comparison-col__header_org {
+    background-color: var(--slds-g-color-palette-blue-10, #eef4ff);
+    color: var(--slds-g-color-palette-blue-50, #0176d3);
+}
+
+/* Zero the default tab panel block padding — sample-tab-body owns it instead (Pattern 4, path B) */
+.samples-tabset {
+    --slds-c-tab-panel-spacing-block-start: 0;
+    --slds-c-tab-panel-spacing-block-end: 0;
+}
+
+/* Sample tab body — owns padding since tabset panel block padding is zeroed */
+.sample-tab-body {
+    padding: var(--slds-g-spacing-5, 1.25rem);
+}
+
+.sample-preview {
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    overflow: clip;
+}
+
+/* Subtab bar — cosmos slds-context-bar already handles background + border-bottom;
+   add a top border to visually separate from the primary tab bar */
+.about-subtab-bar {
+    border-top: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-1, #c9c9c9);
+}
+
+.about-console-body {
+    padding: var(--slds-g-spacing-5, 1.25rem);
+    background-color: var(--slds-g-color-surface-2, #f3f3f3);
+    min-height: var(--slds-g-spacing-10, 2.5rem);
+}
+
+.about-button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.about-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.about-spinner-demo {
+    min-height: var(--slds-g-sizing-14, 15rem);
+}
+
+/* Related list sample — canonical pattern */
+.about-related-layout {
+    background-color: var(--slds-g-color-surface-2, #f3f3f3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.about-related-layout lightning-card.about-related-card {
+    display: block;
+    --slds-c-card-radius-border: var(--slds-g-radius-border-3, 0.75rem);
+    background-color: var(--slds-g-color-surface-container-1, #fff);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-1, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-3, 0.75rem);
+    box-shadow: none;
+}
+
+
+.about-related-table {
+    display: block;
+    --_slds-c-datatable-color-border: transparent;
+    --_slds-c-datatable-radius-border: 0;
+}
+
+/* Get Started prompt chip */
+.get-started-prompt {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-4, 1rem);
+    background-color: var(--slds-g-color-surface-container-2, #f3f3f3);
+    border-radius: var(--slds-g-radius-border-4, 0.5rem);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    font-family: monospace;
+}

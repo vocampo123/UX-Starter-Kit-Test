@@ -1,0 +1,169 @@
+<template>
+    <div class="elevations-page">
+
+        <div class="elevations-header">
+            <span class="slds-text-heading_large">Shadows &amp; Elevation</span>
+            <p class="slds-text-body_regular slds-m-top_x-small elevations-header__sub">
+                SLDS 2 uses soft, multi-layer box shadows to communicate stacking order. Higher elevation = higher shadow value.
+            </p>
+        </div>
+
+        <div class="elevations-body">
+
+            <!-- Box Shadow scale -->
+            <article class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Box Shadow Scale</h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_medium">
+                        Box shadows indicate elevation. Use them to show which elements sit on top of others. Always apply via <code>var(--slds-g-shadow-N)</code> — never hardcode shadow values.
+                    </p>
+                    <div class="elevation-scale">
+
+                        <div class="elevation-item">
+                            <div class="elevation-item__swatch elevation-item__swatch_base"></div>
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">Base Level</p>
+                            <p class="slds-text-body_small slds-text-color_weak">No shadow</p>
+                            <p class="elevation-item__note slds-m-top_x-small">Components that live on the surface and don't cover other components. Background is white on grey canvas; white + border on white canvas.</p>
+                        </div>
+
+                        <div class="elevation-item">
+                            <div class="elevation-item__swatch elevation-item__swatch_1"></div>
+                            <p class="slds-text-body_small slds-m-top_x-small"><code>--slds-g-shadow-1</code></p>
+                            <p class="elevation-item__note slds-m-top_x-small">Page headers, tables, filter panels, dropdowns, inline edit, images</p>
+                        </div>
+
+                        <div class="elevation-item">
+                            <div class="elevation-item__swatch elevation-item__swatch_2"></div>
+                            <p class="slds-text-body_small slds-m-top_x-small"><code>--slds-g-shadow-2</code></p>
+                            <p class="elevation-item__note slds-m-top_x-small">Menus, docked form footer, docked utility bar, color picker, notifications</p>
+                        </div>
+
+                        <div class="elevation-item">
+                            <div class="elevation-item__swatch elevation-item__swatch_3"></div>
+                            <p class="slds-text-body_small slds-m-top_x-small"><code>--slds-g-shadow-3</code></p>
+                            <p class="elevation-item__note slds-m-top_x-small">Panels, docked composer, tooltips, toasts</p>
+                        </div>
+
+                        <div class="elevation-item">
+                            <div class="elevation-item__swatch elevation-item__swatch_4"></div>
+                            <p class="slds-text-body_small slds-m-top_x-small"><code>--slds-g-shadow-4</code></p>
+                            <p class="elevation-item__note slds-m-top_x-small">Modals, popovers, App Launcher</p>
+                        </div>
+
+                    </div>
+                </div>
+            </article>
+
+            <!-- Directional variants -->
+            <article class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Directional Variants</h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_medium">
+                        Panels docked to a screen edge use directional shadow tokens so the shadow only casts inward. Use <code>inline-start</code> for left panels, <code>inline-end</code> for right panels.
+                    </p>
+                    <div class="elevation-directional">
+                        <div class="elevation-directional__item">
+                            <div class="elevation-directional__swatch elevation-directional__swatch_left"></div>
+                            <p class="slds-text-body_small slds-m-top_small"><code>--slds-g-shadow-inline-start-3</code></p>
+                            <p class="elevation-item__note slds-m-top_xx-small">Left-docked panel — shadow casts rightward into the page</p>
+                        </div>
+                        <div class="elevation-directional__item">
+                            <div class="elevation-directional__swatch elevation-directional__swatch_right"></div>
+                            <p class="slds-text-body_small slds-m-top_small"><code>--slds-g-shadow-inline-end-3</code></p>
+                            <p class="elevation-item__note slds-m-top_xx-small">Right-docked panel — shadow casts leftward into the page</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Usage rules -->
+            <article class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Usage Rules</h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-bottom_medium">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col"><div class="slds-truncate">Token</div></th>
+                                <th scope="col"><div class="slds-truncate">Components</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Base (no shadow)</td>
+                                <td>Cards, record lists, page chrome — anything that lives on the surface and does not overlay other content</td>
+                            </tr>
+                            <tr>
+                                <td><code>--slds-g-shadow-1</code></td>
+                                <td>Page headers, tables, filter panels, dropdowns, inline edit, images</td>
+                            </tr>
+                            <tr>
+                                <td><code>--slds-g-shadow-2</code></td>
+                                <td>Menus, docked form footer, docked utility bar, color picker, notifications</td>
+                            </tr>
+                            <tr>
+                                <td><code>--slds-g-shadow-3</code></td>
+                                <td>Panels, docked composer, tooltips, toasts</td>
+                            </tr>
+                            <tr>
+                                <td><code>--slds-g-shadow-4</code></td>
+                                <td>Modals, popovers, App Launcher</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="slds-text-title slds-m-bottom_x-small">Hard rules</p>
+                    <ul class="slds-list_dotted">
+                        <li class="slds-text-body_small slds-m-bottom_xx-small">Never apply a shadow to a base-level component — only elements that appear above the surface get a shadow</li>
+                        <li class="slds-text-body_small slds-m-bottom_xx-small">Never hardcode shadow values — always use <code>var(--slds-g-shadow-N, fallback)</code></li>
+                        <li class="slds-text-body_small slds-m-bottom_xx-small">Never give related list cards a <code>box-shadow</code> — they are outline-only (border, no elevation)</li>
+                        <li class="slds-text-body_small slds-m-bottom_xx-small">Use <code>overflow: clip</code> (not <code>hidden</code>) on rounded containers — <code>hidden</code> silently clips child shadows at the container edge</li>
+                        <li class="slds-text-body_small">Inset shadows (button active, input active) are LBC-internal — do not replicate them in custom CSS</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Focus shadow -->
+            <article class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Focus State Shadow</h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_medium">
+                        Focus states use a two-layer outset shadow: a white inner ring (2px) surrounded by a dark blue outer ring (4px). This combination passes accessibility contrast on any background. Applied automatically by LBCs — do not recreate manually.
+                    </p>
+                    <div class="elevation-focus-demo">
+                        <div class="elevation-focus-swatch"></div>
+                        <div class="slds-m-left_medium">
+                            <p class="slds-text-body_small slds-m-bottom_x-small">
+                                <code>box-shadow: 0 0 0 2px var(--slds-g-color-surface-container-1, #fff), 0 0 0 4px var(--slds-g-color-on-surface-3, #001e5b)</code>
+                            </p>
+                            <p class="slds-text-body_small slds-text-color_weak">White inner ring + dark blue outer ring — passes on any surface color</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</template>

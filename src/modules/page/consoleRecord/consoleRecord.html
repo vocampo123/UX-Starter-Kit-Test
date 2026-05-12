@@ -1,54 +1,6 @@
 <template>
     <div class="console-record">
 
-        <!-- Console navigation bar (slds-context-bar blueprint) -->
-        <div class="slds-context-bar">
-            <div class="slds-context-bar__primary">
-                <div class="slds-context-bar__item slds-context-bar__dropdown-trigger slds-dropdown-trigger slds-dropdown-trigger_click">
-                    <div class="slds-context-bar__icon-action slds-p-right_none">
-                        <lightning-button-icon
-                            icon-name="utility:waffle"
-                            variant="bare"
-                            alternative-text="App Launcher"
-                            title="App Launcher"
-                            class="slds-context-bar__button">
-                        </lightning-button-icon>
-                    </div>
-                    <span class="slds-context-bar__label-action slds-context-bar__app-name">
-                        <span class="slds-truncate" title="Lightning Service">Lightning Service</span>
-                    </span>
-                </div>
-            </div>
-            <nav class="slds-context-bar__secondary" role="navigation" aria-label="App Navigation Menu">
-                <ul class="slds-grid">
-                    <!-- Primary tab: Contacts -->
-                    <li class="slds-context-bar__item">
-                        <a class="slds-context-bar__label-action" title="Contacts" role="menuitem">
-                            <span class="slds-truncate">Contacts</span>
-                        </a>
-                    </li>
-                    <!-- Active tab: Sarah White record -->
-                    <li class="slds-context-bar__item slds-is-active" aria-current="page">
-                        <a class="slds-context-bar__label-action" title="Sarah White" role="menuitem">
-                            <lightning-icon icon-name="standard:contact" size="x-small" alternative-text="Contact" class="slds-m-right_xx-small"></lightning-icon>
-                            <span class="slds-truncate">Sarah White</span>
-                        </a>
-                        <div class="slds-context-bar__icon-action slds-context-bar__icon-action_end slds-p-left_none">
-                            <lightning-button-icon
-                                icon-name="utility:close"
-                                variant="bare"
-                                size="x-small"
-                                alternative-text="Close Sarah White tab"
-                                title="Close">
-                            </lightning-button-icon>
-                        </div>
-                        <!-- Active indicator bar -->
-                        <div class="console-record__tab-indicator"></div>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
         <!-- Page content -->
         <div class="console-record__body">
 
@@ -231,13 +183,6 @@
                                 </div>
                             </lightning-tab>
 
-                            <!-- Label tab -->
-                            <lightning-tab label="Label" value="label">
-                                <div class="console-record__tab-panel">
-                                    <p class="slds-text-body_regular slds-text-color_weak">No labels applied.</p>
-                                </div>
-                            </lightning-tab>
-
                         </lightning-tabset>
                     </lightning-card>
                 </div>
@@ -247,7 +192,7 @@
                   <div class="console-record__sidebar-stack">
 
                     <!-- Next Best Action -->
-                    <lightning-card title="Next Best Action" icon-name="standard:einstein_ai">
+                    <lightning-card title="Next Best Action" icon-name="standard:einstein_replies">
                         <div class="slds-var-p-around_medium">
                             <p class="slds-text-body_regular slds-m-bottom_small">
                                 Check to see if the last B2B Order qualifies for free Cirrus Services.

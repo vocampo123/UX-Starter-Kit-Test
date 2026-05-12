@@ -4,17 +4,105 @@
         <!-- Page header -->
         <div class="page-header">
             <div class="page-header__title">
-                <span class="slds-text-heading_large">Icon Test Page</span>
+                <span class="slds-text-heading_large">Icons</span>
                 <span class="slds-text-body_regular slds-m-left_small page-header__subtitle">
                     {totalCount} icons &nbsp;&middot;&nbsp; render time: {renderTimeLabel}
                 </span>
             </div>
             <p class="slds-m-top_x-small page-header__help">
-                This page shows only a subset of available icons. You can search the full icon set <a href="https://v1.lightningdesignsystem.com/icons/" target="_blank" rel="noopener noreferrer">here</a>.
+                All icons available in this local prototype. Labels show the exact <code>icon-name</code> value to use in <code>&lt;lightning-icon&gt;</code>.
             </p>
         </div>
 
         <div class="page-body">
+
+            <!-- Guidelines card -->
+            <article class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">Usage Guidelines</h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+
+                    <!-- Category decision table -->
+                    <p class="slds-text-title slds-m-bottom_x-small">Category Decision</p>
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-bottom_medium">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col"><div class="slds-truncate">Category</div></th>
+                                <th scope="col"><div class="slds-truncate">Use for</div></th>
+                                <th scope="col"><div class="slds-truncate">Example</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>utility:</code></td>
+                                <td>UI controls &amp; affordances — search, filter, chevrons, close, edit, settings</td>
+                                <td><div class="slds-grid slds-grid_vertical-align-center" style="gap:0.5rem"><lightning-icon icon-name="utility:search" size="x-small" alternative-text="search"></lightning-icon><code>utility:search</code></div></td>
+                            </tr>
+                            <tr>
+                                <td><code>standard:</code></td>
+                                <td>Salesforce objects &amp; records — Account, Contact, Case, Opportunity, Lead</td>
+                                <td><div class="slds-grid slds-grid_vertical-align-center" style="gap:0.5rem"><lightning-icon icon-name="standard:account" size="x-small" alternative-text="account"></lightning-icon><code>standard:account</code></div></td>
+                            </tr>
+                            <tr>
+                                <td><code>action:</code></td>
+                                <td>User task verbs — save, delete, edit, add, close. Rule of thumb: if the UI text could start with "Do…", use <code>action:</code>. Common in buttons, menus, toolbars, row actions.</td>
+                                <td><div class="slds-grid slds-grid_vertical-align-center" style="gap:0.5rem"><lightning-icon icon-name="action:new" size="x-small" alternative-text="new"></lightning-icon><code>action:new</code></div></td>
+                            </tr>
+                            <tr>
+                                <td><code>custom:</code></td>
+                                <td>Generic shapes for custom objects when no <code>standard:</code> icon fits — app launcher tiles, custom object tiles, branded placeholders</td>
+                                <td><div class="slds-grid slds-grid_vertical-align-center" style="gap:0.5rem"><lightning-icon icon-name="standard:custom" size="x-small" alternative-text="custom"></lightning-icon><code>custom:custom1</code>…<code>custom99</code></div></td>
+                            </tr>
+                            <tr>
+                                <td><code>doctype:</code></td>
+                                <td>File formats — PDF, Word, Excel, image, video</td>
+                                <td><div class="slds-grid slds-grid_vertical-align-center" style="gap:0.5rem"><lightning-icon icon-name="doctype:pdf" size="x-small" alternative-text="pdf"></lightning-icon><code>doctype:pdf</code></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Size reference -->
+                    <p class="slds-text-title slds-m-bottom_x-small">Sizes</p>
+                    <div class="slds-grid slds-grid_vertical-align-end slds-m-bottom_medium icon-sizes">
+                        <div class="icon-size-item">
+                            <lightning-icon icon-name="utility:settings" size="xx-small" alternative-text="xx-small"></lightning-icon>
+                            <span class="slds-text-body_small slds-text-color_weak">xx-small</span>
+                        </div>
+                        <div class="icon-size-item">
+                            <lightning-icon icon-name="utility:settings" size="x-small" alternative-text="x-small"></lightning-icon>
+                            <span class="slds-text-body_small slds-text-color_weak">x-small</span>
+                        </div>
+                        <div class="icon-size-item">
+                            <lightning-icon icon-name="utility:settings" size="small" alternative-text="small"></lightning-icon>
+                            <span class="slds-text-body_small slds-text-color_weak">small</span>
+                        </div>
+                        <div class="icon-size-item">
+                            <lightning-icon icon-name="utility:settings" size="medium" alternative-text="medium"></lightning-icon>
+                            <span class="slds-text-body_small slds-text-color_weak">medium</span>
+                        </div>
+                        <div class="icon-size-item">
+                            <lightning-icon icon-name="utility:settings" size="large" alternative-text="large"></lightning-icon>
+                            <span class="slds-text-body_small slds-text-color_weak">large</span>
+                        </div>
+                    </div>
+
+                    <!-- Hard rules -->
+                    <p class="slds-text-title slds-m-bottom_x-small">Hard Rules</p>
+                    <ul class="slds-list_dotted">
+                        <li class="slds-text-body_small slds-m-bottom_xx-small">Always use <code>&lt;lightning-icon&gt;</code> — never inline SVG, <code>&lt;img&gt;</code>, or font icons</li>
+                        <li class="slds-text-body_small slds-m-bottom_xx-small">When the icon communicates meaning: provide <code>alternative-text</code> (required) and <code>title</code> (recommended) — describe the purpose, not the appearance (<code>"Upload file"</code> not <code>"paperclip"</code>)</li>
+                        <li class="slds-text-body_small slds-m-bottom_xx-small">When the icon is decorative and the parent control already has an accessible label: use empty <code>alternative-text=""</code> to hide it from assistive tech</li>
+                        <li class="slds-text-body_small slds-m-bottom_xx-small"><code>standard:</code> icons always render with a circle background in SLDS 2 — never strip it with CSS</li>
+                        <li class="slds-text-body_small"><code>utility:</code> icon color inherits from adjacent text — never hardcode a fill color</li>
+                    </ul>
+
+                </div>
+            </article>
 
             <!-- Standard Icons -->
             <article class="slds-card slds-m-bottom_medium">
@@ -52,6 +140,28 @@
                 </div>
                 <div class="slds-card__body slds-card__body_inner icon-grid">
                     <template for:each={utilityIcons} for:item="icon">
+                        <div key={icon.name} class="icon-item">
+                            <lightning-icon icon-name={icon.name} size="small"></lightning-icon>
+                            <span class="icon-item__label">{icon.label}</span>
+                        </div>
+                    </template>
+                </div>
+            </article>
+
+            <!-- Action Icons -->
+            <article class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span>Action</span>
+                                <lightning-badge class="slds-m-left_x-small" label={actionCount}></lightning-badge>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner icon-grid">
+                    <template for:each={actionIcons} for:item="icon">
                         <div key={icon.name} class="icon-item">
                             <lightning-icon icon-name={icon.name} size="small"></lightning-icon>
                             <span class="icon-item__label">{icon.label}</span>

@@ -18,10 +18,10 @@
 export const routes = [
   {
     path: '/',
-    component: 'page-home',
-    title: 'Home',
-    navPage: 'home',
-    navLabel: 'Home',
+    component: 'page-about',
+    title: 'About',
+    navPage: 'about',
+    navLabel: 'About',
   },
   {
     path: '/icons',
@@ -30,15 +30,7 @@ export const routes = [
     navPage: 'icons',
     navLabel: 'Icons',
   },
-  {
-    path: '/users/:id',
-    component: 'page-user',
-    title: (params) => `User ${params.id}`,
-    navPage: 'user',
-    navLabel: 'User',
-    navPath: '/users/42',
-  },
-  {
+{
     path: '/contacts',
     component: 'page-contacts',
     title: 'Contacts',
@@ -57,5 +49,19 @@ export const routes = [
     title: 'Console Record',
     navPage: 'console-record',
     navLabel: 'Console Record',
+  },
+  {
+    path: '/elevations',
+    component: 'page-elevations',
+    title: 'Elevations',
+    navPage: 'elevations',
+    navLabel: 'Elevations',
+  },
+  {
+    path: '/dashboard',
+    component: 'page-dashboard',
+    title: 'Dashboard',
+    navPage: 'dashboard',
+    navLabel: 'Dashboard',
   },
 ];

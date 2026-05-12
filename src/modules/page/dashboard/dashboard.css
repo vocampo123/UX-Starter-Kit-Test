@@ -1,0 +1,109 @@
+.dashboard-page {
+    padding: var(--slds-g-spacing-5, 1.25rem);
+    background-color: var(--slds-g-color-surface-2, #f3f3f3);
+    min-height: 100%;
+}
+
+.dashboard-grid {
+    align-items: flex-start;
+}
+
+/* Center and right columns stack their cards vertically */
+.dashboard-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-4, 1rem);
+}
+
+/* Donut chart */
+.dashboard-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-donut {
+    width: 10rem;
+    height: 10rem;
+}
+
+.dashboard-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+    margin-top: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.dashboard-legend__item {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    font-size: var(--slds-g-font-scale-neg2, 0.75rem);
+    color: var(--slds-g-color-on-surface-1, #5c5c5c);
+}
+
+.dashboard-legend__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Contacts datatable — flat inside card */
+.dashboard-table {
+    display: block;
+    --_slds-c-datatable-color-border: transparent;
+    --_slds-c-datatable-radius-border: 0;
+}
+
+/* Account tiles */
+.dashboard-tile {
+    padding-block: var(--slds-g-spacing-2, 0.5rem);
+    border-bottom: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+}
+
+.dashboard-tile:last-child {
+    border-bottom: none;
+}
+
+/* Pipeline bar chart */
+.dashboard-pipeline__row {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+    margin-bottom: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.dashboard-pipeline__row:last-child {
+    margin-bottom: 0;
+}
+
+.dashboard-pipeline__label {
+    flex: 0 0 5.5rem;
+    text-align: right;
+}
+
+.dashboard-pipeline__track {
+    flex: 1;
+    position: relative;
+    height: 1.75rem;
+    background-color: var(--slds-g-color-surface-2, #f3f3f3);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    overflow: clip;
+}
+
+.dashboard-pipeline__bar {
+    height: 100%;
+    background-color: var(--slds-g-color-palette-yellow-40, #f4bc25);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+}
+
+.dashboard-pipeline__value {
+    position: absolute;
+    right: var(--slds-g-spacing-2, 0.5rem);
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: var(--slds-g-font-weight-6, 590);
+    color: var(--slds-g-color-on-surface-2, #2e2e2e);
+}

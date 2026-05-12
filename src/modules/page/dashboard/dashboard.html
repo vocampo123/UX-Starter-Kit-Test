@@ -1,0 +1,270 @@
+<template>
+    <div class="dashboard-page">
+
+        <ui-page-header
+            variant="object-home"
+            icon-name="standard:dashboard"
+            object-label="Dashboards"
+            title="Recently Viewed">
+
+            <lightning-breadcrumbs slot="breadcrumbs">
+                <lightning-breadcrumb label="Home" href="/"></lightning-breadcrumb>
+            </lightning-breadcrumbs>
+
+            <div slot="actions">
+                <lightning-button-group>
+                    <lightning-button label="New" variant="neutral"></lightning-button>
+                    <lightning-button-menu
+                        alternative-text="More Actions"
+                        variant="border-filled"
+                        menu-alignment="right">
+                        <lightning-menu-item label="Refresh All" value="refresh"></lightning-menu-item>
+                    </lightning-button-menu>
+                </lightning-button-group>
+            </div>
+
+        </ui-page-header>
+
+        <!-- Three-column content grid -->
+        <div class="slds-grid slds-gutters_small slds-wrap dashboard-grid">
+
+            <!-- Left: Recent Activity (slds-timeline blueprint) -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                <lightning-card title="Recent Activity">
+                    <lightning-button-icon
+                        slot="actions"
+                        icon-name="utility:expand"
+                        variant="container"
+                        alternative-text="Expand"
+                        title="Expand">
+                    </lightning-button-icon>
+                    <div class="slds-var-p-around_medium">
+                        <ul class="slds-timeline">
+
+                            <!-- Call item -->
+                            <li class="slds-timeline__item_expandable slds-timeline__item_call">
+                                <span class="slds-assistive-text">Call</span>
+                                <div class="slds-media slds-media_timeline slds-timeline__media_call">
+                                    <div class="slds-media__figure slds-media__figure_column">
+                                        <lightning-button-icon
+                                            icon-name="utility:switch"
+                                            variant="bare"
+                                            size="x-small"
+                                            alternative-text="Expand"
+                                            title="Expand"
+                                            class="slds-m-right_x-small">
+                                        </lightning-button-icon>
+                                        <div class="slds-icon_container slds-timeline__icon">
+                                            <lightning-icon icon-name="standard:log_a_call" size="small" alternative-text="Call"></lightning-icon>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3 class="slds-truncate"><a class="slds-text-link">Mobile conversation on Monday</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date slds-text-body_small slds-text-color_weak">10:00am | 3/23/17</p>
+                                                <lightning-button-icon icon-name="utility:down" variant="border-filled" size="x-small" alternative-text="More" title="More"></lightning-button-icon>
+                                            </div>
+                                        </div>
+                                        <p class="slds-text-body_small slds-m-top_x-small">
+                                            <span class="slds-text-color_weak">You logged a call with </span>
+                                            <a class="slds-text-link">Adam Chan</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Email item -->
+                            <li class="slds-timeline__item_expandable slds-timeline__item_email">
+                                <span class="slds-assistive-text">Email</span>
+                                <div class="slds-media slds-media_timeline slds-timeline__media_email">
+                                    <div class="slds-media__figure slds-media__figure_column">
+                                        <lightning-button-icon
+                                            icon-name="utility:switch"
+                                            variant="bare"
+                                            size="x-small"
+                                            alternative-text="Expand"
+                                            title="Expand"
+                                            class="slds-m-right_x-small">
+                                        </lightning-button-icon>
+                                        <div class="slds-icon_container slds-timeline__icon">
+                                            <lightning-icon icon-name="standard:email" size="small" alternative-text="Email"></lightning-icon>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3 class="slds-truncate"><a class="slds-text-link">Re: Mobile conversation on Monday with the new global team</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date slds-text-body_small slds-text-color_weak">10:00am | 3/24/17</p>
+                                                <lightning-button-icon icon-name="utility:down" variant="border-filled" size="x-small" alternative-text="More" title="More"></lightning-button-icon>
+                                            </div>
+                                        </div>
+                                        <p class="slds-text-body_small slds-m-top_x-small">
+                                            <span class="slds-text-color_weak">You emailed </span>
+                                            <a class="slds-text-link">Lea Chan</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Event item -->
+                            <li class="slds-timeline__item_expandable slds-timeline__item_event">
+                                <span class="slds-assistive-text">Event</span>
+                                <div class="slds-media slds-media_timeline slds-timeline__media_event">
+                                    <div class="slds-media__figure slds-media__figure_column">
+                                        <lightning-button-icon
+                                            icon-name="utility:switch"
+                                            variant="bare"
+                                            size="x-small"
+                                            alternative-text="Expand"
+                                            title="Expand"
+                                            class="slds-m-right_x-small">
+                                        </lightning-button-icon>
+                                        <div class="slds-icon_container slds-timeline__icon">
+                                            <lightning-icon icon-name="standard:event" size="small" alternative-text="Event"></lightning-icon>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3 class="slds-truncate"><a class="slds-text-link">EBC Follow up call</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date slds-text-body_small slds-text-color_weak">10:30am | 3/24/17</p>
+                                                <lightning-button-icon icon-name="utility:down" variant="border-filled" size="x-small" alternative-text="More" title="More"></lightning-button-icon>
+                                            </div>
+                                        </div>
+                                        <p class="slds-text-body_small slds-m-top_x-small">
+                                            <span class="slds-text-color_weak">You created an event with </span>
+                                            <a class="slds-text-link">Aida Lee</a>
+                                            <span class="slds-text-color_weak"> and 5 others</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </lightning-card>
+            </div>
+
+            <!-- Center: Leads chart + Contacts table -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 dashboard-col">
+
+                <!-- Leads donut chart -->
+                <lightning-card title="Leads">
+                    <lightning-button-icon
+                        slot="actions"
+                        icon-name="utility:expand"
+                        variant="container"
+                        alternative-text="Expand"
+                        title="Expand">
+                    </lightning-button-icon>
+                    <div class="slds-var-p-around_medium dashboard-chart">
+                        <svg viewBox="0 0 120 120" class="dashboard-donut" aria-label="Leads by status">
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="var(--slds-g-color-border-base-1,#e5e5e5)" stroke-width="18"/>
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="var(--slds-g-color-accent-2,#0250d9)" stroke-width="18" stroke-dasharray="99 184" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="var(--slds-g-color-neutral-base-50,#706e6b)" stroke-width="18" stroke-dasharray="71 212" stroke-dashoffset="-99" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="var(--slds-g-color-palette-teal-40,#0b827c)" stroke-width="18" stroke-dasharray="71 212" stroke-dashoffset="-170" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="var(--slds-g-color-palette-violet-40,#5a4fcf)" stroke-width="18" stroke-dasharray="42 241" stroke-dashoffset="-241" transform="rotate(-90 60 60)"/>
+                        </svg>
+                        <div class="dashboard-legend">
+                            <span class="dashboard-legend__item"><span class="dashboard-legend__dot" style="background:var(--slds-g-color-accent-2,#0250d9)"></span>Lead 1</span>
+                            <span class="dashboard-legend__item"><span class="dashboard-legend__dot" style="background:var(--slds-g-color-neutral-base-50,#706e6b)"></span>Lead 2</span>
+                            <span class="dashboard-legend__item"><span class="dashboard-legend__dot" style="background:var(--slds-g-color-palette-teal-40,#0b827c)"></span>Lead 3</span>
+                            <span class="dashboard-legend__item"><span class="dashboard-legend__dot" style="background:var(--slds-g-color-palette-violet-40,#5a4fcf)"></span>Lead 4</span>
+                        </div>
+                    </div>
+                    <div slot="footer" class="slds-text-align_center slds-var-p-around_x-small">
+                        <a class="slds-text-link slds-text-body_small">View All</a>
+                    </div>
+                </lightning-card>
+
+                <!-- Contacts table -->
+                <lightning-card title="Contacts">
+                    <lightning-button-icon
+                        slot="actions"
+                        icon-name="utility:expand"
+                        variant="container"
+                        alternative-text="Expand"
+                        title="Expand">
+                    </lightning-button-icon>
+                    <lightning-datatable
+                        class="dashboard-table"
+                        key-field="id"
+                        data={contactsData}
+                        columns={contactsColumns}
+                        column-widths-mode="auto"
+                        hide-checkbox-column>
+                    </lightning-datatable>
+                </lightning-card>
+
+            </div>
+
+            <!-- Right: Accounts tiles + Opportunities pipeline -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 dashboard-col">
+
+                <!-- Accounts tile list -->
+                <lightning-card title="Accounts">
+                    <lightning-button-icon
+                        slot="actions"
+                        icon-name="utility:expand"
+                        variant="container"
+                        alternative-text="Expand"
+                        title="Expand">
+                    </lightning-button-icon>
+                    <div class="slds-var-p-around_medium">
+                        <template for:each={accountTiles} for:item="tile">
+                            <div key={tile.id} class="dashboard-tile slds-media slds-media_center">
+                                <div class="slds-media__figure">
+                                    <lightning-avatar
+                                        initials={tile.initials}
+                                        fallback-icon-name="standard:person_account"
+                                        alternative-text={tile.name}
+                                        size="medium">
+                                    </lightning-avatar>
+                                </div>
+                                <div class="slds-media__body">
+                                    <p class="slds-text-body_small"><a class="slds-text-link">{tile.name}</a></p>
+                                    <p class="slds-text-body_small slds-text-color_weak">Title: {tile.title}</p>
+                                    <p class="slds-text-body_small slds-text-color_weak">Role: {tile.role}</p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </lightning-card>
+
+                <!-- Opportunities pipeline -->
+                <lightning-card title="Opportunities">
+                    <lightning-button-icon
+                        slot="actions"
+                        icon-name="utility:expand"
+                        variant="container"
+                        alternative-text="Expand"
+                        title="Expand">
+                    </lightning-button-icon>
+                    <div class="slds-var-p-around_medium">
+                        <template for:each={pipelineStages} for:item="stage">
+                            <div key={stage.id} class="dashboard-pipeline__row">
+                                <span class="dashboard-pipeline__label slds-text-body_small slds-text-color_weak">{stage.label}</span>
+                                <div class="dashboard-pipeline__track">
+                                    <div class="dashboard-pipeline__bar" style={stage.barStyle}></div>
+                                    <span class="dashboard-pipeline__value slds-text-body_small">{stage.value}</span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <div slot="footer" class="slds-text-align_center slds-var-p-around_x-small">
+                        <a class="slds-text-link slds-text-body_small">View All</a>
+                    </div>
+                </lightning-card>
+
+            </div>
+
+        </div>
+    </div>
+</template>

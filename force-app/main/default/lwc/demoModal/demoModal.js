@@ -1,16 +1,40 @@
 import LightningModal from 'lightning/modal';
+import { track } from 'lwc';
 
-/**
- * Demo modal component that extends LightningModal.
- * Opened imperatively via DemoModal.open({ label: '...', size: 'medium' }).
- * Use for demonstrating modal header, body, and footer with Lightning Base Components.
- */
 export default class DemoModal extends LightningModal {
+    @track isSaving = false;
+
+    firstName = '';
+    lastName = '';
+    email = '';
+    phone = '';
+    selectedAccount = '';
+    description = '';
+
+    get accountOptions() {
+        return [
+            { label: 'Acme Corp', value: 'acme' },
+            { label: 'Global Industries', value: 'global' },
+            { label: 'Salesforce', value: 'salesforce' },
+        ];
+    }
+
+    handleFirstNameChange(event) { this.firstName = event.detail.value; }
+    handleLastNameChange(event) { this.lastName = event.detail.value; }
+    handleEmailChange(event) { this.email = event.detail.value; }
+    handlePhoneChange(event) { this.phone = event.detail.value; }
+    handleAccountChange(event) { this.selectedAccount = event.detail.value; }
+    handleDescriptionChange(event) { this.description = event.detail.value; }
+
     handleCancel() {
         this.close();
     }
 
-    handleConfirm() {
-        this.close('confirmed');
+    handleSave() {
+        this.isSaving = true;
+        // Simulate async save with spinner, then close
+        setTimeout(() => {
+            this.close('saved');
+        }, 1500);
     }
 }
