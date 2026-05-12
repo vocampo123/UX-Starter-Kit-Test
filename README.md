@@ -18,7 +18,7 @@ A framework for building production-quality Salesforce UI — locally or deploye
 
 ---
 
-## Live prototype
+## About Page
 
 **[https://vocampo123.github.io/UX-Starter-Kit-Test/](https://vocampo123.github.io/UX-Starter-Kit-Test/)**
 
