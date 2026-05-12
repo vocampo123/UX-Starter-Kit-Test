@@ -296,6 +296,8 @@ box-shadow: var(--slds-g-shadow-4, 0 4px 8px rgba(0,0,0,0.16));
 
 **When a host-level `--slds-c-*` override still does nothing:** the cosmos theme may be re-setting the same variable on an internal LBC element (e.g., `.slds-tabs_default`, `.slds-card`, `.slds-page-header`). Your host override is shadowed by cosmos's closer redefinition. The fix is a same-selector rule in `src/styles/global.css` (the unscoped global stylesheet) — see `docs/spacing-rules.md` → *"When even your `--slds-c-*` host override doesn't work — the shadow-inheritance trap"* for the diagnostic and pattern.
 
+**Tab active indicator — already fixed globally.** `src/styles/global.css` sets the `::after` height to `3px` on `.slds-tabs_default__item.slds-is-active` to match the context bar indicator weight. Do not re-apply or override this in page or component CSS.
+
 **Rule 8 — One visual boundary per component level. Wrapper CSS describes the parent pattern; it does not correct the child.**
 
 Before adding any wrapper CSS, ask: *"Is this describing the parent page pattern, or is it patching the child component?"*

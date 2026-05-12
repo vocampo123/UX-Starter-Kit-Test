@@ -89,12 +89,24 @@ Three rules that prevent the most common icon mistakes:
 
 Sizes: `xx-small` → `x-small` → `small` (default utility) → `medium` (default object) → `large` (hero only)
 
+## Global CSS fixes already applied — do not re-apply
+
+`src/styles/global.css` contains repo-wide overrides that fix cosmos shadow-inheritance traps. Do not re-apply these in page or component CSS:
+
+| Fix | Rule in global.css | Why |
+|-----|--------------------|-----|
+| Tab active indicator | `.slds-tabs_default__item.slds-is-active::after { height: 3px !important }` | Cosmos chains the sizing token through multiple levels; direct `::after` override is the only reliable fix |
+
+If you notice a tab indicator that looks too thin — it is already fixed. Check that you haven't accidentally scoped it away with a wrapper class.
+
+---
+
 ## Hard stops — these are errors
 
 - No Bootstrap, Tailwind, Material UI, or any non-SLDS CSS
 - No `var(--lwc-*)` tokens — SLDS 1 is deprecated; use `--slds-g-*` only
 - No hardcoded hex colors or `px` values when a hook exists
-- No `!important` or `style=""` attributes
+- No `!important` or `style=""` attributes except in `src/styles/global.css` for confirmed shadow-inheritance trap fixes (see above)
 - No fabricated SLDS class names — verify every class against the spec
 - No inline SVG icon sprites
 

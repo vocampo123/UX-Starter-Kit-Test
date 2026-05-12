@@ -46,7 +46,7 @@ The full LBC catalog: https://developer.salesforce.com/docs/component-library/ov
 3. **Is it a blueprint pattern?** Use the SLDS blueprint class: `slds-page-header`, `slds-form`, `slds-modal`.
 
 **Custom CSS is a last resort.** Allowed only when the property is component-specific layout that no utility, hook, or blueprint covers. When you do write it, never use:
-- `!important`
+- `!important` — except in `src/styles/global.css` for confirmed shadow-inheritance trap fixes (see "Global CSS fixes already applied" below)
 - Inline `style="..."` attributes
 - Hardcoded hex values when a `--slds-g-*` hook exists
 
@@ -86,6 +86,20 @@ Three rules that prevent the most common icon mistakes:
 3. **Always set `alternative-text` and `title`** — describe purpose not appearance (`"Upload file"` not `"paperclip"`); use `alternative-text=""` + `aria-hidden="true"` for purely decorative icons
 
 Sizes: `xx-small` → `x-small` → `small` (default utility) → `medium` (default object) → `large` (hero only)
+
+### Global CSS fixes already applied — do not re-apply
+
+`src/styles/global.css` contains repo-wide overrides that fix cosmos shadow-inheritance traps. Do not re-apply these in page or component CSS:
+
+| Fix | Rule in global.css | Why |
+|-----|--------------------|-----|
+| Tab active indicator | `.slds-tabs_default__item.slds-is-active::after { height: 3px !important }` | Cosmos chains the sizing token through multiple levels; direct `::after` override is the only reliable fix |
+
+**What "shadow-inheritance trap" means:** cosmos re-sets a `--slds-c-*` variable on an internal `.slds-*` selector inside an LBC's synthetic shadow root, shadowing any host-level override you set. The fix must go in `src/styles/global.css` (loaded outside the LWC plugin, so its selectors aren't auto-scoped) and must target the same `.slds-*` selector cosmos uses. Only reach for this pattern after confirming with `rg` that cosmos re-defines the variable internally. Always scope with a page-level class to prevent bleed.
+
+If you notice a tab indicator that looks too thin — **it is already fixed**. Check that you haven't accidentally scoped it away with a wrapper class.
+
+---
 
 ### Required reading
 
@@ -301,7 +315,7 @@ npm run check
 - Prefer small, single-responsibility LWCs and readable structure.
 - For requirements-driven UI, build Salesforce-shaped experiences: record home pages, list views, related lists, app/home pages, modals, forms, empty states, and notifications where appropriate.
 - Include realistic handoff states where relevant: loading, empty, populated, error, validation, read-only, and permission-limited.
-- Do not use `!important`.
+- Do not use `!important` — except in `src/styles/global.css` for confirmed shadow-inheritance trap fixes (see "Global CSS fixes already applied" below).
 - Do not use inline `style` attributes; use utility classes or the component’s CSS file as appropriate.
 - Keep the starter generic. If the user asks for a richer demo, consider documenting it as an optional example rather than baking it into the default app.
 

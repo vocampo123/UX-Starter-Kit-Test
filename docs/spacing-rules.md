@@ -276,6 +276,17 @@ Hard rules for this pattern:
 - Keep the rule in `src/styles/global.css`. Do **not** scatter "global" overrides across page CSS files — page CSS is auto-scoped and won't apply anyway.
 - For the deployable org build, this CSS does not deploy (`src/` is excluded by `.forceignore`). The org equivalent is a separate static resource or a `lightning__AppPage` page-level stylesheet — out of scope for the local prototype.
 
+**This fix is already applied globally in this repo.** `src/styles/global.css` contains:
+
+```css
+.slds-tabs_default__item.slds-is-active::after,
+.slds-tabs--default__item.slds-is-active::after {
+    height: 3px !important;
+}
+```
+
+This overrides the `::after` indicator height directly (rather than the token) because cosmos chains the token through multiple levels making specificity impossible to win cleanly. The result: all `lightning-tabset` instances in the app render a 3px active indicator matching the context bar weight. **Do not remove or re-apply this fix in page or component CSS — it is already live.**
+
 ### Pattern 8 — One visual boundary per component level
 
 Wrapper CSS describes the parent page pattern. It does not correct or restyle the child LBC.
