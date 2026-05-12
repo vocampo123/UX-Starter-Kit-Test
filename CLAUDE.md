@@ -546,6 +546,21 @@ If two components in different columns need to start at the same visual height, 
 
 This keeps each LWC independently removable and configurable in App Builder without breaking adjacent columns.
 
+## Showcase pages — do not modify
+
+The following pages exist as verified UI references for users and agents. They demonstrate correct patterns, working components, and canonical markup. **Never modify them when building a demo.**
+
+| Page | Path | Purpose |
+|------|------|---------|
+| About | `src/modules/page/about/` | Component samples: inputs, page header variants, console nav, related lists, modal, buttons |
+| Icons | `src/modules/page/iconTest/` | Full icon catalog with guidelines |
+| Elevations | `src/modules/page/elevations/` | Shadow scale, usage rules, directional variants |
+| Dashboard | `src/modules/page/dashboard/` | Dashboard page pattern reference |
+
+If a user asks to "add a component" or "show an example" and you think to put it on the About page — stop. Build a new page instead. Modifying these pages forces users to do cleanup before using the kit for their own work. The About page is a user-facing reference, not a scratch pad.
+
+---
+
 ## Adding a new page (local dev only)
 
 **The existing routes in `src/routes.config.js` are starter kit showcase examples — not a nav shell to extend.** When building a demo, replace them; do not add demo routes alongside them.
