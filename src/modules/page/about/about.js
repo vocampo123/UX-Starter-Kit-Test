@@ -76,7 +76,7 @@ export default class About extends LightningElement {
         {
             id: 'repo-setup',
             name: 'Repo Setup',
-            icon: 'utility:github',
+            icon: 'utility:dx_branch',
             description: 'Creates a new remote GitHub repository, installs the GitHub CLI if needed, authenticates, and pushes the initial commit.',
             trigger: '"create a GitHub repo" or "set up version control"',
         },
