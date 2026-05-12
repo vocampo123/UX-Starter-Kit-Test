@@ -30,7 +30,14 @@ export const routes = [
     navPage: 'icons',
     navLabel: 'Icons',
   },
-{
+  {
+    path: '/elevations',
+    component: 'page-elevations',
+    title: 'Elevations',
+    navPage: 'elevations',
+    navLabel: 'Elevations',
+  },
+  {
     path: '/contacts',
     component: 'page-contacts',
     title: 'Contacts',
@@ -49,13 +56,6 @@ export const routes = [
     title: 'Console Record',
     navPage: 'console-record',
     navLabel: 'Console Record',
-  },
-  {
-    path: '/elevations',
-    component: 'page-elevations',
-    title: 'Elevations',
-    navPage: 'elevations',
-    navLabel: 'Elevations',
   },
   {
     path: '/dashboard',
