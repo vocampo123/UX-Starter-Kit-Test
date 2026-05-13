@@ -40,9 +40,9 @@ export const routes = [
   {
     path: '/contacts',
     component: 'page-contacts',
-    title: 'Contacts',
+    title: 'List View',
     navPage: 'contacts',
-    navLabel: 'Contacts',
+    navLabel: 'List View',
   },
   {
     path: '/contacts/:id',
@@ -53,9 +53,9 @@ export const routes = [
   {
     path: '/console-record',
     component: 'page-console-record',
-    title: 'Console Record',
+    title: 'Record Detail',
     navPage: 'console-record',
-    navLabel: 'Console Record',
+    navLabel: 'Record Detail',
   },
   {
     path: '/dashboard',
